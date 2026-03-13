@@ -14,7 +14,7 @@
 
 ## 📖 What is IqbalAPI?
 
-**IqbalAPI** is a structured, developer-friendly REST API for the poetry of **Allama Iqbal** — one of the most significant poets in Pakistani and Islamic history.
+**IqbalAPI** is a structured, developer-friendly REST API for the poetry of **Allama Iqbal** — one of the most significant poets in South Asian and Islamic history.
 
 No existing API provided clean, structured access to his work with English translations. IqbalAPI fills that gap — giving developers access to his books, poems, and verses with a single HTTP request.
 
@@ -28,6 +28,7 @@ No existing API provided clean, structured access to his work with English trans
 - 📚 **Books, Poems & Verses** — fully structured and relational
 - 🔀 **Random endpoints** — get a random verse, poem, or book instantly
 - 🔍 **Search** — search across Urdu text, English translations, and poem names
+- 📄 **Pagination** — control how much data you get back with `count` and `page`
 - 🌐 **CORS enabled** — call it from any browser, Flutter app, or client
 - 🚦 **Rate limiting** — 100 requests per 15 minutes per IP
 - ⚡ **Fast** — PostgreSQL-backed with connection pooling
@@ -46,6 +47,8 @@ GET /                          → API info and available endpoints
 GET /books                     → all books
 GET /books/:id                 → single book with its poems and verses
 GET /books/random              → random book
+GET /books?count=5             → first 5 books
+GET /books?count=5&page=2      → 5 books, page 2
 ```
 
 ### Poems
@@ -53,6 +56,8 @@ GET /books/random              → random book
 GET /poems                     → all poems with their verses
 GET /poems/:id                 → single poem with its verses
 GET /poems/random              → random poem with its verses
+GET /poems?count=5             → first 5 poems
+GET /poems?count=5&page=2      → 5 poems, page 2
 ```
 
 ### Verses
@@ -60,12 +65,46 @@ GET /poems/random              → random poem with its verses
 GET /verses                    → all verses
 GET /verses/:id                → single verse by ID
 GET /verses/random             → random verse
-GET /verses?count=5            → first N verses
+GET /verses?count=5            → first 5 verses
+GET /verses?count=5&page=2     → 5 verses, page 2
 ```
 
 ### Search
 ```
-GET /search?term=khudi         → search across verses, poems, and books
+GET /search?term=khudi                   → search across verses and poems
+GET /search?term=khudi&count=5           → first 5 results
+GET /search?term=khudi&count=5&page=2    → 5 results, page 2
+```
+
+---
+
+## 📄 Pagination
+
+All collection endpoints support `count` and `page` query parameters.
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `count` | integer | Number of results to return |
+| `page` | integer | Page number (requires `count`) |
+
+When both `count` and `page` are provided, the response includes pagination metadata:
+
+```json
+{
+  "page": 2,
+  "count": 5,
+  "total": 48,
+  "verses": [...]
+}
+```
+
+**Examples:**
+```
+/verses?count=10              → first 10 verses
+/verses?count=10&page=2       → verses 11-20
+/verses?count=10&page=3       → verses 21-30
+/poems?count=5&page=1         → first 5 poems
+/search?term=خودی&count=10   → first 10 search results
 ```
 
 ---
@@ -98,6 +137,16 @@ GET /search?term=khudi         → search across verses, poems, and books
       "english": "What should I ask the sages..."
     }
   ]
+}
+```
+
+**`GET /verses?count=5&page=2`**
+```json
+{
+  "page": 2,
+  "count": 5,
+  "total": 48,
+  "verses": [...]
 }
 ```
 
@@ -169,13 +218,14 @@ verses   → id, book_id, poem_id, verse_no, urdu, english
 **Mirza AbdulMoeed**
 
 [![GitHub](https://img.shields.io/badge/GitHub-TheMirza009-181717?style=for-the-badge&logo=github)](https://github.com/TheMirza009)
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-Abdul_Moeed-0A66C2?style=for-the-badge&logo=linkedin)](https://linkedin.com/in/TheMirza009)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-Mirza_AbdulMoeed-0A66C2?style=for-the-badge&logo=linkedin)](https://linkedin.com/in/TheMirza009)
 
 ---
 
 ## ⚖️ License
 
 MIT License — use it, build on it, just credit the work.
+
 
 The poetry content belongs to the public domain, sourced from [AllamaIqbal.com](https://www.allamaiqbal.com/). Allama Iqbal passed away in 1938.
 

@@ -26,9 +26,28 @@ const poemWithVerses = `
 /// POEMS METHODS
 ///==========================================================
 
-// Returns all poems in the database
-// Query param: none
+// Returns all poems with their verses
+// Query params: count, page
 router.get('/', async (request, response) => {
+    const { count, page } = request.query;
+
+    if (count && page) {
+        const offset = (parseInt(page) - 1) * parseInt(count);
+        const total = await pool.query("SELECT COUNT(*) FROM poems");
+        const result = await pool.query(`${poemWithVerses} GROUP BY poems.id ORDER BY poems.id ASC LIMIT $1 OFFSET $2`, [count, offset]);
+        return response.json({
+            page: parseInt(page),
+            count: parseInt(count),
+            total: parseInt(total.rows[0].count),
+            poems: result.rows
+        })
+    }
+
+    if (count) {
+        const result = await pool.query(`${poemWithVerses} GROUP BY poems.id ORDER BY poems.id ASC LIMIT $1`, [count]);
+        return response.json(result.rows);
+    }
+
     const result = await pool.query(`${poemWithVerses} GROUP BY poems.id ORDER BY poems.id ASC`);
     response.json(result.rows);
 })

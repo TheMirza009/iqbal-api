@@ -8,12 +8,13 @@ const router = Router();
 ///==========================================================
 
 // Searches across verses and poems
-// Query param: term (string)
-// Example: /search?term=khudi
+// Query params: term, count, page
+// Example: /search?term=khudi&count=5&page=1
 router.get('/', async (request, response) => {
+    const { count, page } = request.query;
     const term = `%${request.query.term}%`;
 
-    const result = await pool.query(`
+    const baseQuery = `
         SELECT 
             verses.id as verse_id,
             verses.verse_no,
@@ -33,13 +34,23 @@ router.get('/', async (request, response) => {
           OR poems.name ILIKE $1
           OR poems.name_urdu ILIKE $1
         ORDER BY verses.id ASC
-    `, [term])
+    `
+
+    let result;
+
+    if (count && page) {
+        const offset = (parseInt(page) - 1) * parseInt(count);
+        result = await pool.query(`${baseQuery} LIMIT $2 OFFSET $3`, [term, count, offset]);
+    } else if (count) {
+        result = await pool.query(`${baseQuery} LIMIT $2`, [term, count]);
+    } else {
+        result = await pool.query(baseQuery, [term]);
+    }
 
     if (result.rows.length === 0) {
         return response.status(404).json({ error: 'No results found' })
     }
 
-    // reshape into grouped structure
     const books = [...new Map(result.rows.map(row => [
         row.book_id,
         { id: row.book_id, name: row.book_name, name_urdu: row.book_name_urdu }
@@ -57,7 +68,18 @@ router.get('/', async (request, response) => {
         english: row.english
     }))
 
-    response.json({ books, poems, verses })
+    const response_data = { books, poems, verses }
+
+    if (count && page) {
+        return response.json({
+            page: parseInt(page),
+            count: parseInt(count),
+            ...response_data
+        })
+    }
+
+    response.json(response_data)
 })
+
 
 export default router;

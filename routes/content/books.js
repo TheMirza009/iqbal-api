@@ -39,9 +39,28 @@ const bookWithPoems = `
 ///==========================================================
 
 // Returns all books with their poems and verses
-// Query param: none
+// Query params: count, page
 router.get('/', async (request, response) => {
-    const result = await pool.query(`${bookWithPoems} GROUP BY books.id ORDER BY books.id ASC`)
+    const { count, page } = request.query;
+
+    if (count && page) {
+        const offset = (parseInt(page) - 1) * parseInt(count);
+        const total = await pool.query("SELECT COUNT(*) FROM books");
+        const result = await pool.query(`${bookWithPoems} GROUP BY books.id ORDER BY books.id ASC LIMIT $1 OFFSET $2`, [count, offset]);
+        return response.json({
+            page: parseInt(page),
+            count: parseInt(count),
+            total: parseInt(total.rows[0].count),
+            books: result.rows
+        })
+    }
+
+    if (count) {
+        const result = await pool.query(`${bookWithPoems} GROUP BY books.id ORDER BY books.id ASC LIMIT $1`, [count]);
+        return response.json(result.rows);
+    }
+
+    const result = await pool.query(`${bookWithPoems} GROUP BY books.id ORDER BY books.id ASC`);
     response.json(result.rows);
 })
 
