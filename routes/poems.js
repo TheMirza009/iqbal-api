@@ -1,23 +1,25 @@
 import { Router } from "express";
-import { loadPoem } from "../utils/loader.js"
+import pool from "../database/index.js";
 
 const router = Router()
-const poems = loadPoem('./data/poems')
 
-router.get('/', (request, response) => {
-  response.json({name: 'Khudi', poems: poems})
+router.get('/', async (request, response) => {
+    const result = await pool.query("SELECT * FROM poems");
+    response.json(result.rows);
 })
 
-router.get('/random', (req, res) => {
-    res.json(poems[Math.floor(Math.random() * poems.length)])
+router.get('/random', async (req, res) => {
+    const result = await pool.query("SELECT * FROM poems ORDER BY RANDOM() LIMIT 1");
+    res.json(result.rows[0]);
 })
 
-router.get('/:id', (request, response) => {
-    const resVerse = poems[request.params.id - 1];
-    if (resVerse == null) {
-        return response.status(404).json({ error: "No such verse exists" })
+router.get('/:id', async (request, response) => {
+    const result = await pool.query('SELECT * FROM poems WHERE id = $1', [request.params.id])
+    
+    if (result.rows.length === 0) {
+        return response.status(404).json({ error: "No such poem exists" })
     }
-    response.json(poems[request.params.id - 1]) // 1 - 1 = 0 == first item
+    response.json(result.rows[0])
 })
 
 export default router

@@ -1,9 +1,7 @@
 import { Router } from "express";
-import { loadVerses } from "../utils/loader.js";
 import pool from "../database/index.js";
 
 const router = Router()
-const verses = loadVerses('./data/poems/khudi')
 
 ///==========================================================
 /// VERSES METHODS
@@ -27,8 +25,7 @@ router.get('/', async (request, response) => {
 // Returns verses/random & shows a random verse
 router.get('/random', async (req, res) => {
     const result = await pool.query("SELECT * FROM verses ORDER BY RANDOM() LIMIT 1");
-    res.json(result.rows);
-    // res.json(verses[Math.floor(Math.random() * verses.length)])
+    res.json(result.rows[0]);
 })
 
 // Returns verses/id (like 1,3,5) & shows numbered verse
