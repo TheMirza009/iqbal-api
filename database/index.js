@@ -1,12 +1,12 @@
 import { Pool } from "pg";
 
 const pool = new Pool({
-    host: 'localhost',
-    port: '8888',
-    database: 'Iqbal_api',
-    user: 'postgres',
-    password: '12345678910',
-});
+   host:       process.env.DB_HOST,
+   port:       process.env.DB_PORT,
+   database:   process.env.DB_NAME,
+   user:       process.env.DB_USER,
+   password:   process.env.DB_PASSWORD
+})
 
 pool.query('SELECT NOW()', (err, res) => {
   if (err) {
