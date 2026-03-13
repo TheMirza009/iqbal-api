@@ -1,5 +1,5 @@
 import { Router } from "express";
-import pool from "../database/index.js";
+import pool from "../../database/index.js";
 
 const router = Router()
 
@@ -13,12 +13,12 @@ router.get('/', async (request, response) => {
 
     // query param count returns how many verses to return
     if (count) {
-        const result = await pool.query("SELECT * FROM verses LIMIT $1", [count]);
+        const result = await pool.query("SELECT * FROM verses ORDER BY id ASC LIMIT $1", [count]);
         return response.json(result.rows);
     }
 
     // defaults to all verses
-    const result = await pool.query("SELECT * FROM verses");
+    const result = await pool.query("SELECT * FROM verses ORDER BY id ASC");
     response.json(result.rows)
 })
 
