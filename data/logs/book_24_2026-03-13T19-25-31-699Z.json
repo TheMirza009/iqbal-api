@@ -1,0 +1,18 @@
+{
+  "book": "Gabriel's Wing",
+  "bookbup": 24,
+  "timestamp": "2026-03-13T19:25:31.701Z",
+  "totals": {
+    "attempted": 1,
+    "succeeded_full": 0,
+    "succeeded_partial": 0,
+    "skipped": 1,
+    "failed": 0
+  },
+  "succeeded_full": [],
+  "succeeded_partial": [],
+  "skipped": [
+    312
+  ],
+  "failed": []
+}
