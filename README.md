@@ -163,7 +163,33 @@ When both `count` and `page` are provided, the response includes pagination meta
   "verses": [...]
 }
 ```
+**`GET /search?term=khudi`**
+```json
+{
+  "total": 284,
+  "meta": {
+    "books": 2,
+    "poems": 12,
+    "verses": 47
+  },
+  "books": [
+    { "id": 2, "name": "Gabriel's Wing", "name_urdu": "بالِ جبریل" }
+  ],
+  "poems": [
+    { "id": 264, "name": "What should I ask the sages about my origin", "name_urdu": "خِردمندوں سے کیا پُوچھوں" }
+  ],
+  "verses": [
+    {
+      "id": 5708,
+      "verse_no": 3,
+      "urdu": "خودی کو کر بلند اتنا کہ ہر تقدیر سے پہلے",
+      "english": "Develop the self so that before every decree"
+    }
+  ]
+}
+```
 
+> **Smart matching** — searching a single book name returns just that book. Searching a single poem name returns that poem with its opening verse.
 ---
 
 ## 🛠️ Tech Stack
@@ -232,7 +258,7 @@ verses   → id, book_id, poem_id, verse_no, urdu, english
 **Mirza AbdulMoeed**
 
 [![GitHub](https://img.shields.io/badge/GitHub-TheMirza009-181717?style=for-the-badge&logo=github)](https://github.com/TheMirza009)
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-Mirza_AbdulMoeed-0A66C2?style=for-the-badge&logo=linkedin)](https://linkedin.com/in/TheMirza009)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-Mirza_AbdulMoeed-0A66C2?style=for-the-badge&logo=linkedin)](https://www.linkedin.com/in/mirza-abdulmoeed009/)
 
 ---
 
