@@ -41,8 +41,15 @@ const bookWithPoems = `
 // Returns all books with their poems and verses
 // Query params: count, page
 router.get('/', async (request, response) => {
-    const { count, page } = request.query;
+    const { count, page, complete } = request.query;
 
+    // Without complete param, just return the 4 books
+    if (!complete) {
+        const result = await pool.query("SELECT * FROM books ORDER BY id ASC");
+        return response.json(result.rows);
+    }
+
+    // With ?complete=true, return full nested structure
     if (count && page) {
         const offset = (parseInt(page) - 1) * parseInt(count);
         const total = await pool.query("SELECT COUNT(*) FROM books");
@@ -52,7 +59,7 @@ router.get('/', async (request, response) => {
             count: parseInt(count),
             total: parseInt(total.rows[0].count),
             books: result.rows
-        })
+        });
     }
 
     if (count) {

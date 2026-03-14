@@ -36,8 +36,22 @@ router.get('/', async (request, response) => {
 
 // Returns verses/random & shows a random verse
 router.get('/random', async (req, res) => {
-    const result = await pool.query("SELECT * FROM verses ORDER BY RANDOM() LIMIT 1");
-    res.json(result.rows[0]);
+    const verse = await pool.query("SELECT * FROM verses ORDER BY RANDOM() LIMIT 1");
+    const v = verse.rows[0];
+
+    const isFirst = v.verse_no % 2 !== 0;
+    const pairVerseNo = isFirst ? v.verse_no + 1 : v.verse_no - 1;
+
+    const pair = await pool.query(
+        "SELECT * FROM verses WHERE poem_id = $1 AND verse_no = $2",
+        [v.poem_id, pairVerseNo]
+    );
+
+    const couplet = isFirst
+        ? [v, pair.rows[0]].filter(Boolean)
+        : [pair.rows[0], v].filter(Boolean);
+
+    res.json(couplet);
 })
 
 // Returns verses/id (like 1,3,5) & shows numbered verse
