@@ -12,7 +12,10 @@ const router = Router();
 // Example: /search?term=khudi&count=5&page=1
 router.get("/", async (request, response) => {
   const { count, page } = request.query;
-  const terms = request.query.term.trim().split(/\s+/).map((w) => `%${w}%`);
+  const terms = request.query.term
+    .trim()
+    .split(/\s+/)
+    .map((w) => `%${w}%`);
 
   const termConditions = terms
     .map(
@@ -52,10 +55,10 @@ router.get("/", async (request, response) => {
       [...terms, count, offset],
     );
   } else if (count) {
-    result = await pool.query(
-      `${baseQuery} LIMIT $${terms.length + 1}`,
-      [...terms, count],
-    );
+    result = await pool.query(`${baseQuery} LIMIT $${terms.length + 1}`, [
+      ...terms,
+      count,
+    ]);
   } else {
     result = await pool.query(baseQuery, terms);
   }
@@ -86,9 +89,7 @@ router.get("/", async (request, response) => {
   const verses = result.rows
     .filter((row) =>
       words.every(
-        (w) =>
-          row.english?.toLowerCase().includes(w) ||
-          row.urdu?.includes(w),
+        (w) => row.english?.toLowerCase().includes(w) || row.urdu?.includes(w),
       ),
     )
     .map((row) => ({
@@ -101,9 +102,30 @@ router.get("/", async (request, response) => {
   const response_data = { books, poems, verses };
 
   if (count && page) {
+    const offset = (parseInt(page) - 1) * parseInt(count);
+
+    const totalResult = await pool.query(
+      `SELECT COUNT(*) FROM verses
+         JOIN poems ON verses.poem_id = poems.id
+         JOIN books ON verses.book_id = books.id
+         WHERE ${termConditions}`,
+      terms,
+    );
+
+    result = await pool.query(
+      `${baseQuery} LIMIT $${terms.length + 1} OFFSET $${terms.length + 2}`,
+      [...terms, count, offset],
+    );
+
     return response.json({
       page: parseInt(page),
       count: parseInt(count),
+      total: parseInt(totalResult.rows[0].count),
+      meta: {
+        books: books.length,
+        poems: poems.length,
+        verses: verses.length,
+      },
       ...response_data,
     });
   }
