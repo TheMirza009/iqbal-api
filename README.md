@@ -1,6 +1,7 @@
 <div align="center">
 
 # IqbalAPI
+
 ### A free, open REST API for Allama Iqbal's poetry.
 
 [![Node.js](https://img.shields.io/badge/Node.js-24-339933?style=for-the-badge&logo=nodedotjs&logoColor=white)](https://nodejs.org)
@@ -12,6 +13,14 @@
 
 ---
 
+<br>
+
+<div align="center">
+
+**🌐 Live API: [iqbal-api.up.railway.app](https://iqbal-api.up.railway.app)**
+
+</div>
+
 ## 📖 What is IqbalAPI?
 
 **IqbalAPI** is a structured, developer-friendly REST API for the poetry of **Allama Iqbal** — one of the most significant poets in South Asian and Islamic history.
@@ -19,20 +28,22 @@
 No existing API provided clean, structured access to his work with English translations. IqbalAPI fills that gap — giving developers access to his books, poems, and verses with a single HTTP request.
 
 **Why I built this?**
+
 > I noticed there was no structured API for Iqbal's poetry anywhere. The data existed on the web but was inaccessible to developers. So I scraped, cleaned, structured, and served it — because it deserves to be built on top of.
 
 ## 📚 Included Books
 
 Currently includes **4 books** of Allama Iqbal's Urdu poetry with English translations:
 
-| # | Name | اردو | Published |
-|---|------|------|-----------|
-| 1 | Bang-e-Dra | بانگِ درا | 1924 |
-| 2 | Gabriel's Wing | بالِ جبریل | 1935 |
-| 3 | Zarb-e-Kalim | ضربِ کلیم | 1936 |
-| 4 | Armughan-e-Hijaz | ارمغانِ حجاز | 1938 |
+| #   | Name             | اردو         | Published |
+| --- | ---------------- | ------------ | --------- |
+| 1   | Bang-e-Dra       | بانگِ درا    | 1924      |
+| 2   | Gabriel's Wing   | بالِ جبریل   | 1935      |
+| 3   | Zarb-e-Kalim     | ضربِ کلیم    | 1936      |
+| 4   | Armughan-e-Hijaz | ارمغانِ حجاز | 1938      |
 
 > More collections may be added in future updates.
+
 ---
 
 ## ✨ Features
@@ -50,11 +61,13 @@ Currently includes **4 books** of Allama Iqbal's Urdu poetry with English transl
 ## 🔌 Endpoints
 
 ### Root
+
 ```
 GET /                          → API info and available endpoints
 ```
 
 ### Books
+
 ```
 GET /books                          → all 4 books (lightweight)
 GET /books?complete=true            → all books with poems and verses nested
@@ -66,6 +79,7 @@ GET /books?count=5&page=2           → 5 books, page 2
 ```
 
 ### Poems
+
 ```
 GET /poems                     → all poems with their verses
 GET /poems/:id                 → single poem with its verses
@@ -75,6 +89,7 @@ GET /poems?count=5&page=2      → 5 poems, page 2
 ```
 
 ### Verses
+
 ```
 GET /verses                    → all verses
 GET /verses/:id                → single verse by ID
@@ -84,6 +99,7 @@ GET /verses?count=5&page=2     → 5 verses, page 2
 ```
 
 ### Search
+
 ```
 GET /search?term=khudi                   → search across verses and poems
 GET /search?term=khudi&count=5           → first 5 results
@@ -96,10 +112,10 @@ GET /search?term=khudi&count=5&page=2    → 5 results, page 2
 
 All collection endpoints support `count` and `page` query parameters.
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `count` | integer | Number of results to return |
-| `page` | integer | Page number (requires `count`) |
+| Parameter | Type    | Description                    |
+| --------- | ------- | ------------------------------ |
+| `count`   | integer | Number of results to return    |
+| `page`    | integer | Page number (requires `count`) |
 
 When both `count` and `page` are provided, the response includes pagination metadata:
 
@@ -113,6 +129,7 @@ When both `count` and `page` are provided, the response includes pagination meta
 ```
 
 **Examples:**
+
 ```
 /verses?count=10              → first 10 verses
 /verses?count=10&page=2       → verses 11-20
@@ -126,16 +143,30 @@ When both `count` and `page` are provided, the response includes pagination meta
 ## 📦 Example Response
 
 **`GET /verses/random`**
+
 ```json
-{
-  "id": 1,
-  "verse_no": 1,
-  "urdu": "خودی کو کر بلند اتنا کہ ہر تقدیر سے پہلے\nخدا بندے سے خود پُوچھے، بتا تیری رضا کیا ہے",
-  "english": "Raise yourself so high that before every decree\nGod himself asks you: what is your wish?"
-}
+[
+  {
+    "id": 5708,
+    "book_id": 2,
+    "poem_id": 264,
+    "verse_no": 3,
+    "urdu": "خودی کو کر بلند اتنا کہ ہر تقدیر سے پہلے",
+    "english": "Develop the self so that before every decree"
+  },
+  {
+    "id": 5709,
+    "book_id": 2,
+    "poem_id": 264,
+    "verse_no": 4,
+    "urdu": "خدا بندے سے خود پُوچھے، بتا تیری رضا کیا ہے",
+    "english": "God will ascertain from you: “What is your wish?”"
+  }
+]
 ```
 
 **`GET /poems/1`**
+
 ```json
 {
   "id": 1,
@@ -155,6 +186,7 @@ When both `count` and `page` are provided, the response includes pagination meta
 ```
 
 **`GET /verses?count=5&page=2`**
+
 ```json
 {
   "page": 2,
@@ -163,7 +195,9 @@ When both `count` and `page` are provided, the response includes pagination meta
   "verses": [...]
 }
 ```
+
 **`GET /search?term=khudi`**
+
 ```json
 {
   "total": 284,
@@ -172,11 +206,13 @@ When both `count` and `page` are provided, the response includes pagination meta
     "poems": 12,
     "verses": 47
   },
-  "books": [
-    { "id": 2, "name": "Gabriel's Wing", "name_urdu": "بالِ جبریل" }
-  ],
+  "books": [{ "id": 2, "name": "Gabriel's Wing", "name_urdu": "بالِ جبریل" }],
   "poems": [
-    { "id": 264, "name": "What should I ask the sages about my origin", "name_urdu": "خِردمندوں سے کیا پُوچھوں" }
+    {
+      "id": 264,
+      "name": "What should I ask the sages about my origin",
+      "name_urdu": "خِردمندوں سے کیا پُوچھوں"
+    }
   ],
   "verses": [
     {
@@ -190,17 +226,18 @@ When both `count` and `page` are provided, the response includes pagination meta
 ```
 
 > **Smart matching** — searching a single book name returns just that book. Searching a single poem name returns that poem with its opening verse.
+
 ---
 
 ## 🛠️ Tech Stack
 
-| Layer | Technology | Purpose |
-|-------|-----------|---------|
-| **Runtime** | Node.js 24 | Server runtime |
-| **Framework** | Express 5 | HTTP routing and middleware |
-| **Database** | PostgreSQL | Relational data storage |
-| **DB Client** | node-postgres (pg) | PostgreSQL connection pooling |
-| **Other** | cors, express-rate-limit, dotenv | Security and configuration |
+| Layer         | Technology                       | Purpose                       |
+| ------------- | -------------------------------- | ----------------------------- |
+| **Runtime**   | Node.js 24                       | Server runtime                |
+| **Framework** | Express 5                        | HTTP routing and middleware   |
+| **Database**  | PostgreSQL                       | Relational data storage       |
+| **DB Client** | node-postgres (pg)               | PostgreSQL connection pooling |
+| **Other**     | cors, express-rate-limit, dotenv | Security and configuration    |
 
 ---
 
@@ -209,9 +246,9 @@ When both `count` and `page` are provided, the response includes pagination meta
 ### Prerequisites
 
 | Requirement | Version |
-|-------------|---------|
-| Node.js | `20+` |
-| PostgreSQL | `14+` |
+| ----------- | ------- |
+| Node.js     | `20+`   |
+| PostgreSQL  | `14+`   |
 
 ### Installation
 
@@ -266,7 +303,6 @@ verses   → id, book_id, poem_id, verse_no, urdu, english
 
 MIT License — use it, build on it, just credit the work.
 
-
 The poetry content belongs to the public domain, sourced from [AllamaIqbal.com](https://www.allamaiqbal.com/). Allama Iqbal passed away in 1938.
 
 ---
@@ -275,6 +311,6 @@ The poetry content belongs to the public domain, sourced from [AllamaIqbal.com](
 
 **Built with ☕ in Express &nbsp;·&nbsp; For the poetry that deserves to be accessible.**
 
-*If you find this useful, consider leaving a ⭐ on GitHub!*
+_If you find this useful, consider leaving a ⭐ on GitHub!_
 
 </div>
