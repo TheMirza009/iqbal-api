@@ -21,6 +21,18 @@ No existing API provided clean, structured access to his work with English trans
 **Why I built this?**
 > I noticed there was no structured API for Iqbal's poetry anywhere. The data existed on the web but was inaccessible to developers. So I scraped, cleaned, structured, and served it — because it deserves to be built on top of.
 
+## 📚 Included Books
+
+Currently includes **4 books** of Allama Iqbal's Urdu poetry with English translations:
+
+| # | Name | اردو | Published |
+|---|------|------|-----------|
+| 1 | Bang-e-Dra | بانگِ درا | 1924 |
+| 2 | Gabriel's Wing | بالِ جبریل | 1935 |
+| 3 | Zarb-e-Kalim | ضربِ کلیم | 1936 |
+| 4 | Armughan-e-Hijaz | ارمغانِ حجاز | 1938 |
+
+> More collections may be added in future updates.
 ---
 
 ## ✨ Features
@@ -44,11 +56,13 @@ GET /                          → API info and available endpoints
 
 ### Books
 ```
-GET /books                     → all books
-GET /books/:id                 → single book with its poems and verses
-GET /books/random              → random book
-GET /books?count=5             → first 5 books
-GET /books?count=5&page=2      → 5 books, page 2
+GET /books                          → all 4 books (lightweight)
+GET /books?complete=true            → all books with poems and verses nested
+GET /books?complete=true&count=2    → paginated full content
+GET /books/:id                      → single book with its poems and verses
+GET /books/random                   → random book
+GET /books?count=5                  → first 5 books
+GET /books?count=5&page=2           → 5 books, page 2
 ```
 
 ### Poems
@@ -64,7 +78,7 @@ GET /poems?count=5&page=2      → 5 poems, page 2
 ```
 GET /verses                    → all verses
 GET /verses/:id                → single verse by ID
-GET /verses/random             → random verse
+GET /verses/random             → random couplet (2 verses)
 GET /verses?count=5            → first 5 verses
 GET /verses?count=5&page=2     → 5 verses, page 2
 ```
