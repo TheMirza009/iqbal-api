@@ -10,11 +10,21 @@ const router = Router();
 // Searches across verses and poems
 // Query params: term, count, page
 // Example: /search?term=khudi&count=5&page=1
-router.get('/', async (request, response) => {
-    const { count, page } = request.query;
-    const term = `%${request.query.term}%`;
+router.get("/", async (request, response) => {
+  const { count, page } = request.query;
+  const terms = request.query.term.trim().split(/\s+/).map((w) => `%${w}%`);
 
-    const baseQuery = `
+  const termConditions = terms
+    .map(
+      (_, i) => `
+      (verses.english    ILIKE $${i + 1}
+    OR verses.urdu       ILIKE $${i + 1}
+    OR poems.name        ILIKE $${i + 1}
+    OR poems.name_urdu   ILIKE $${i + 1})`,
+    )
+    .join(" AND ");
+
+  const baseQuery = `
         SELECT 
             verses.id as verse_id,
             verses.verse_no,
@@ -29,57 +39,76 @@ router.get('/', async (request, response) => {
         FROM verses
         JOIN poems ON verses.poem_id = poems.id
         JOIN books ON verses.book_id = books.id
-        WHERE verses.english ILIKE $1
-          OR verses.urdu ILIKE $1
-          OR poems.name ILIKE $1
-          OR poems.name_urdu ILIKE $1
+        WHERE ${termConditions}
         ORDER BY verses.id ASC
-    `
+    `;
 
-    let result;
+  let result;
 
-    if (count && page) {
-        const offset = (parseInt(page) - 1) * parseInt(count);
-        result = await pool.query(`${baseQuery} LIMIT $2 OFFSET $3`, [term, count, offset]);
-    } else if (count) {
-        result = await pool.query(`${baseQuery} LIMIT $2`, [term, count]);
-    } else {
-        result = await pool.query(baseQuery, [term]);
-    }
+  if (count && page) {
+    const offset = (parseInt(page) - 1) * parseInt(count);
+    result = await pool.query(
+      `${baseQuery} LIMIT $${terms.length + 1} OFFSET $${terms.length + 2}`,
+      [...terms, count, offset],
+    );
+  } else if (count) {
+    result = await pool.query(
+      `${baseQuery} LIMIT $${terms.length + 1}`,
+      [...terms, count],
+    );
+  } else {
+    result = await pool.query(baseQuery, terms);
+  }
 
-    if (result.rows.length === 0) {
-        return response.status(404).json({ error: 'No results found' })
-    }
+  if (result.rows.length === 0) {
+    return response.status(404).json({ error: "No results found" });
+  }
 
-    const books = [...new Map(result.rows.map(row => [
+  const books = [
+    ...new Map(
+      result.rows.map((row) => [
         row.book_id,
-        { id: row.book_id, name: row.book_name, name_urdu: row.book_name_urdu }
-    ])).values()]
+        { id: row.book_id, name: row.book_name, name_urdu: row.book_name_urdu },
+      ]),
+    ).values(),
+  ];
 
-    const poems = [...new Map(result.rows.map(row => [
+  const poems = [
+    ...new Map(
+      result.rows.map((row) => [
         row.poem_id,
-        { id: row.poem_id, name: row.poem_name, name_urdu: row.poem_name_urdu }
-    ])).values()]
+        { id: row.poem_id, name: row.poem_name, name_urdu: row.poem_name_urdu },
+      ]),
+    ).values(),
+  ];
 
-    const verses = result.rows.map(row => ({
-        id: row.verse_id,
-        verse_no: row.verse_no,
-        urdu: row.urdu,
-        english: row.english
-    }))
+  const words = request.query.term.trim().toLowerCase().split(/\s+/);
+  const verses = result.rows
+    .filter((row) =>
+      words.every(
+        (w) =>
+          row.english?.toLowerCase().includes(w) ||
+          row.urdu?.includes(w),
+      ),
+    )
+    .map((row) => ({
+      id: row.verse_id,
+      verse_no: row.verse_no,
+      urdu: row.urdu,
+      english: row.english,
+    }));
 
-    const response_data = { books, poems, verses }
+  const response_data = { books, poems, verses };
 
-    if (count && page) {
-        return response.json({
-            page: parseInt(page),
-            count: parseInt(count),
-            ...response_data
-        })
-    }
+  if (count && page) {
+    return response.json({
+      page: parseInt(page),
+      count: parseInt(count),
+      ...response_data,
+    });
+  }
 
-    response.json(response_data)
-})
-
+  response.json(response_data);
+});
 
 export default router;

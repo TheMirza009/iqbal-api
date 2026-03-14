@@ -1,0 +1,43 @@
+{
+  "book": "Gabriel's Wing",
+  "bookbup": 24,
+  "timestamp": "2026-03-13T23:38:38.868Z",
+  "totals": {
+    "attempted": 13,
+    "succeeded_full": 10,
+    "succeeded_partial": 3,
+    "skipped": 0,
+    "failed": 0
+  },
+  "succeeded_full": [
+    222,
+    272,
+    274,
+    303,
+    331,
+    352,
+    353,
+    354,
+    364,
+    384
+  ],
+  "succeeded_partial": [
+    {
+      "orderNo": 221,
+      "urdu": "fetch_error: Request failed with status code 520",
+      "english": "ok"
+    },
+    {
+      "orderNo": 294,
+      "urdu": "fetch_error: Request failed with status code 520",
+      "english": "ok"
+    },
+    {
+      "orderNo": 312,
+      "urdu": "ok",
+      "english": "empty"
+    }
+  ],
+  "skipped": [],
+  "failed": []
+}

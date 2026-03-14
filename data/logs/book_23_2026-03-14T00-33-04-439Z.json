@@ -1,0 +1,29 @@
+{
+  "book": "Zarb-e-Kalim",
+  "bookbup": 23,
+  "timestamp": "2026-03-14T00:33:04.444Z",
+  "totals": {
+    "attempted": 11,
+    "succeeded_full": 4,
+    "succeeded_partial": 0,
+    "skipped": 7,
+    "failed": 0
+  },
+  "succeeded_full": [
+    395,
+    417,
+    453,
+    486
+  ],
+  "succeeded_partial": [],
+  "skipped": [
+    385,
+    390,
+    458,
+    487,
+    497,
+    541,
+    577
+  ],
+  "failed": []
+}

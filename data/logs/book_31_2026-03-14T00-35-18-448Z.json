@@ -1,0 +1,19 @@
+{
+  "book": "Armughan-e-Hijaz (Urdu)",
+  "bookbup": 31,
+  "timestamp": "2026-03-14T00:35:18.448Z",
+  "totals": {
+    "attempted": 2,
+    "succeeded_full": 0,
+    "succeeded_partial": 0,
+    "skipped": 2,
+    "failed": 0
+  },
+  "succeeded_full": [],
+  "succeeded_partial": [],
+  "skipped": [
+    606,
+    620
+  ],
+  "failed": []
+}
