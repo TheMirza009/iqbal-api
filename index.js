@@ -24,6 +24,6 @@ app.use('/verses', verseRouter)
 app.use('/poems', poemRouter)
 
 
-app.listen(3000, () => {
+app.listen(process.env.PORT || 3000, () => {
     console.log('Origins -> Ultima')
 })
