@@ -11,8 +11,8 @@ const config = {
     v4: true,
   },
 
-  url: 'https://TheMirza009.github.io',
-  baseUrl: '/iqbal-api/',
+  url: 'http://localhost:3000',
+  baseUrl: '/', 
 
   organizationName: 'TheMirza009',
   projectName: 'iqbal-api',
@@ -47,9 +47,9 @@ const config = {
     ({
       image: 'img/docusaurus-social-card.jpg',
       colorMode: {
-        defaultMode: 'dark',
+        defaultMode: 'light',
         disableSwitch: false,
-        respectPrefersColorScheme: true,
+        // respectPrefersColorScheme: true,
       },
       navbar: {
         title: 'IqbalAPI',
@@ -76,14 +76,14 @@ const config = {
         style: 'dark',
         links: [
           {
-            title: 'Documentation',
-            items: [
-              {
-                label: 'Getting Started',
-                to: '/docs/intro',
-              },
-            ],
-          },
+  title: 'Documentation',
+  items: [
+    { label: 'Getting Started', to: '/docs/intro' },
+    { label: 'Endpoints', to: '/docs/Reference/endpoints' },
+    { label: 'Search', to: '/docs/Reference/search' },
+    { label: 'Examples', to: '/docs/More/examples' },
+  ],
+},
           {
             title: 'API',
             items: [
@@ -98,18 +98,13 @@ const config = {
             ],
           },
           {
-            title: 'Author',
-            items: [
-              {
-                label: 'GitHub',
-                href: 'https://github.com/TheMirza009',
-              },
-              {
-                label: 'LinkedIn',
-                href: 'https://www.linkedin.com/in/mirza-abdulmoeed009/',
-              },
-            ],
-          },
+  title: 'Author',
+  items: [
+    { label: 'GitHub', href: 'https://github.com/TheMirza009' },
+    { label: 'LinkedIn', href: 'https://www.linkedin.com/in/mirza-abdulmoeed009/' },
+    { label: 'Portfolio', href: 'https://themirza.vercel.app/' },
+  ],
+},
         ],
         copyright: `Copyright © ${new Date().getFullYear()} Mirza AbdulMoeed. Built with Docusaurus.`,
       },

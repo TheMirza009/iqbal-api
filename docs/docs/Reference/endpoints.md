@@ -67,10 +67,10 @@ Returns API metadata — name, version, description, and a map of all available 
 | GET | `/search?term=TERM&count=N` | First N results |
 | GET | `/search?term=TERM&count=N&page=P` | Paginated search results |
 
-See [Search](/docs/search) for full details on the search response shape.
+See [Search](/docs/Reference/search) for full details on the search response shape.
 
 ---
 
 ## Pagination
 
-All collection endpoints support `count` and `page`. See [Pagination](/docs/pagination) for details.
+All collection endpoints support `count` and `page`. See [Pagination](/docs/Reference/pagination) for details.

@@ -118,7 +118,7 @@ html[data-theme='dark'] .page {
 .heroTitle {
   font-family: 'Bodoni Moda', 'Bodoni MT', 'Didot', Georgia, serif;
   font-size: clamp(4.5rem, 14vw, 9rem);
-  font-weight: 400;
+  font-weight: 500;
   color: var(--text-1);
   line-height: 1;
   letter-spacing: -0.02em;
@@ -254,14 +254,19 @@ html[data-theme='dark'] .page {
 }
 
 .sectionTitle {
-  font-family: 'Bodoni Moda', 'Bodoni MT', 'Didot', Georgia, serif;
+  font-family: 'Prata', 'Bodoni MT', 'Didot', Georgia, serif;
   font-size: clamp(1.65rem, 4vw, 2.4rem);
-  font-weight: 400;
+  font-weight: 600 !important;
   color: var(--text-1);
   letter-spacing: -0.01em;
   margin: 0 0 2.5rem;
   line-height: 1.2;
 }
+
+/* font-family: 'Bodoni Moda Bold', Georgia, serif !important;
+    font-size: 1.25rem;
+    font-weight: 600 !important;
+    letter-spacing: -0.01em; */
 
 /* ═══════════════════════════════════
    BOOKS GRID

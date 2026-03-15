@@ -90,9 +90,9 @@ The API is rate limited to **100 requests per 15 minutes** per IP address. This 
 
 ## Next Steps
 
-- [Endpoints](/docs/endpoints) — full reference for every route
-- [Search](/docs/search) — how to search across the entire collection
-- [Pagination](/docs/pagination) — controlling response size
+- [Endpoints](/docs/Reference/endpoints)
+- [Search](/docs/Reference/search)
+- [Pagination](/docs/Reference/pagination)
 
 ---
 

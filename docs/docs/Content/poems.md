@@ -60,7 +60,7 @@ GET /poems?count=10&page=2     → poems 11–20
 | `poem_no` | integer | Poem's order number within the book |
 | `name` | string | English title |
 | `name_urdu` | string | Urdu title |
-| `verses` | array | Array of verse objects — see [Verses](/docs/verses) |
+| `verses` | array | Array of verse objects — see [Verses](/docs/Content/verses) |
 
 ---
 
