@@ -1,0 +1,279 @@
+@import url('https://fonts.googleapis.com/css2?family=Prata&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;700&display=swap');
+
+/* ═══════════════════════════════════
+   INFIMA THEME — LIGHT (Sunrise West)
+═══════════════════════════════════ */
+:root {
+  --ifm-color-primary:            #a85500;
+  --ifm-color-primary-dark:       #964c00;
+  --ifm-color-primary-darker:     #8e4700;
+  --ifm-color-primary-darkest:    #753a00;
+  --ifm-color-primary-light:      #ba5e00;
+  --ifm-color-primary-lighter:    #c26300;
+  --ifm-color-primary-lightest:   #d97000;
+  --ifm-background-color:         #faf8f4;
+  --ifm-background-surface-color: #f4f0e8;
+  --ifm-font-family-base:         'Inter', -apple-system, sans-serif;
+  --ifm-font-family-monospace:    'JetBrains Mono', monospace;
+  /* --ifm-heading-font-family:      'Bodoni Moda', Georgia, serif; */
+  --ifm-navbar-background-color:  #faf8f4;
+  --ifm-navbar-shadow:            none;
+  --ifm-footer-background-color:  #111110;
+  --ifm-footer-color:             #a1a1aa;
+  --ifm-footer-link-color:        #a1a1aa;
+  --ifm-footer-link-hover-color:  #ffffff;
+  --ifm-footer-title-color:       #ffffff;
+  --ifm-toc-border-color:         #e0dbd0;
+  --ifm-code-font-size:           90%;
+  --docusaurus-highlighted-code-line-bg: rgba(168, 85, 0, 0.08);
+  --ifm-border-color:             #e0dbd0;
+  --ifm-color-emphasis-300: rgb(250, 246, 242);
+}
+
+/* ═══════════════════════════════════
+   INFIMA THEME — DARK
+═══════════════════════════════════ */
+[data-theme='dark'] {
+  --ifm-color-primary:            #ca8a04;
+  --ifm-color-primary-dark:       #b47b04;
+  --ifm-color-primary-darker:     #aa7403;
+  --ifm-color-primary-darkest:    #8c5f03;
+  --ifm-color-primary-light:      #e09904;
+  --ifm-color-primary-lighter:    #e6a004;
+  --ifm-color-primary-lightest:   #f5ae05;
+  --ifm-background-color:         #000000;
+  --ifm-background-surface-color: #09090b;
+  --ifm-navbar-background-color:  #000000;
+  --ifm-navbar-shadow:            none;
+  --ifm-footer-background-color:  #09090b;
+  --ifm-footer-color:             #71717a;
+  --ifm-footer-link-color:        #71717a;
+  --ifm-footer-link-hover-color:  #ffffff;
+  --ifm-footer-title-color:       #ffffff;
+  --ifm-toc-border-color:         #27272a;
+  --docusaurus-highlighted-code-line-bg: rgba(202, 138, 4, 0.1);
+  --ifm-border-color:             #27272a;
+  --ifm-color-emphasis-300:       #27272a;
+}
+
+/* ═══════════════════════════════════
+   GLOBAL TYPOGRAPHY
+═══════════════════════════════════ */
+/* h1, h2, h3 {
+  font-family: 'Bodoni Moda', Georgia, serif !important;
+  font-weight: 400 !important;
+  letter-spacing: -0.01em;
+} */
+
+code, pre {
+  font-family: 'JetBrains Mono', monospace !important;
+}
+
+html[data-theme='light'] .prism-code {
+  background-color: rgb(241, 238, 234) !important;
+}
+
+html[data-theme='light'] .token.string {
+  color: #ca8a04 !important;
+}
+
+html[data-theme='dark'] .theme-code-block {
+   border: 1.5px solid #585869 !important;
+}
+
+html[data-theme='dark'] .token.string {
+  color: #ffbf35 !important;
+}
+
+
+/* ═══════════════════════════════════
+   NAVBAR — TRANSPARENT OVER HERO
+═══════════════════════════════════ */
+.navbar {
+  border-bottom: 1px solid transparent;
+  transition: background 0.25s ease, border-color 0.25s ease, backdrop-filter 0.25s ease;
+  box-shadow: none !important;
+}
+
+/* State: over hero — fully transparent */
+.navbar.navbar--over-hero {
+  background: transparent !important;
+  border-bottom-color: transparent !important;
+}
+
+[data-theme='light'] .navbar__items--right button[title="Switch between dark and light mode"],
+[data-theme='dark'] .navbar__items--right button[title="Switch between dark and light mode"] {
+  display: block;
+}
+
+.navbar.navbar--over-hero .navbar__title,
+.navbar.navbar--over-hero .navbar__link,
+.navbar.navbar--over-hero .navbar__brand {
+  color: var(--ifm-color-primary) !important;
+}
+
+/* State: scrolled down — glass blur */
+.navbar.navbar--scrolled {
+  backdrop-filter: blur(14px) saturate(1.4);
+  -webkit-backdrop-filter: blur(14px) saturate(1.4);
+  border-bottom-color: var(--ifm-border-color) !important;
+}
+
+.navbar:not(.navbar--over-hero):not(.navbar--scrolled) {
+  border-bottom: 1px solid var(--ifm-border-color);
+}
+
+[data-theme='light'] .navbar.navbar--scrolled {
+  background: rgba(250, 248, 244, 0.40) !important;
+}
+
+[data-theme='dark'] .navbar.navbar--scrolled {
+  background: rgba(0, 0, 0, 0.50) !important;
+}
+
+/* ═══════════════════════════════════
+   NAVBAR CONTENT
+═══════════════════════════════════ */
+.navbar__title {
+  font-family: 'Bodoni Moda Bold', Georgia, serif !important;
+  font-size: 1.25rem;
+  font-weight: 600 !important;
+  letter-spacing: -0.01em;
+}
+
+.navbar__link {
+  font-size: 0.875rem;
+  font-weight: 400;
+}
+
+/* Color scheme toggle button — fix visibility */
+.navbar__items--right .clean-btn {
+  color: var(--ifm-color-primary) !important;
+  opacity: 1 !important;
+}
+
+/* ═══════════════════════════════════
+   FOOTER — UNIFIED STYLE
+═══════════════════════════════════ */
+.footer {
+  border-top: 1px solid var(--ifm-border-color);
+  padding: 3rem 0 2rem;
+}
+
+[data-theme='light'] .footer {
+  background: #111110 !important;
+}
+
+[data-theme='dark'] .footer {
+  background: #09090b !important;
+}
+
+.footer__title {
+  font-family: 'Inter', sans-serif !important;
+  font-size: 0.75rem !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #ffffff !important;
+  margin-bottom: 0.75rem;
+}
+
+.footer__link-item {
+  font-size: 0.875rem;
+  color: #71717a !important;
+  transition: color 0.15s;
+  font-family: 'Inter', sans-serif;
+}
+
+.footer__link-item:hover {
+  color: #ffffff !important;
+  text-decoration: none;
+}
+
+.footer__copyright {
+  font-size: 0.8rem;
+  color: #52525b !important;
+  font-family: 'Inter', sans-serif;
+  margin-top: 2rem;
+  border-top: 1px solid #27272a;
+  padding-top: 1.5rem;
+}
+
+/* ═══════════════════════════════════
+   DOCS CONTENT
+═══════════════════════════════════ */
+/* 
+html[data-theme='dark'] .menu {
+  background-color: #030303;
+} */
+
+html[data-theme='dark'] .theme-doc-sidebar-container {
+  background-color: #030303;
+  border-right: 1px solid #27272a;
+  /* padding: 0.5rem 0; */
+}
+
+.menu__link {
+  padding-top: 0.7rem;
+  padding-bottom: 0.7rem;
+  padding-left: 1.5rem;
+}
+
+.markdown h1,
+.markdown h2,
+.markdown h3 {
+  font-family: 'DM Sans', sans-serif !important;
+  font-weight: 400 !important;
+}
+
+
+.theme-doc-markdown {
+  padding: 2rem 2rem;
+}
+
+.theme-code-block {
+  border: 1px solid var(--ifm-border-color) !important;
+  box-shadow: none !important;
+}
+
+.table-of-contents {
+  padding-left: 1rem;
+}
+
+.table-of-contents__link {
+  padding-left: 0.5rem;
+}
+
+.table-of-contents__link--active {
+  padding-left: 0.5rem;
+}
+/* a[target="_blank"]::after { */
+  /* &nearr;, but nicer. SVG adapted from Inter's rendition of "↗". */
+  /* content: url("data:image/svg+xml,%3Csvg viewBox='0 0 7 7' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1.04261 6.80966L0.377841 6.14489L5.32102 1.19318H1.50284L1.51136 0.272727H6.90625V5.67614H5.97727L5.9858 1.85795L1.04261 6.80966Z' fill='black'/%3E%3C/svg%3E%0A"); */
+  /* inline => inline-block, so that we can give it a height */
+  /* display: inline-block; */
+  /* height: 0.5em; */
+  /* padding-inline: 0.2em; */
+  /* aspect-ratio: 1; */
+  /* line-height: 1; */
+  /* vertical-align: text-top; */
+
+  /* @media (prefers-color-scheme: dark) { */
+    /* filter: invert(100%); */
+  /* } */
+/* } */
+
+/* ═══════════════════════════════════
+   SIDEBAR
+═══════════════════════════════════ */
+[data-theme='light'] .theme-doc-sidebar-container {
+  border-right: 1px solid #e0dbd0;
+}
+
+[data-theme='dark'] .theme-doc-sidebar-container {
+  border-right: 1px solid #27272a;
+}

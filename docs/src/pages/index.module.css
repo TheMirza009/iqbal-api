@@ -1,0 +1,477 @@
+@import url('https://fonts.googleapis.com/css2?family=Prata&family=JetBrains+Mono:wght@400;500&family=Inter:wght@300;400;500;600&family=Noto+Nastaliq+Urdu:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,72,400;0,72,600;0,96,700;1,72,400&family=JetBrains+Mono:wght@400;500&family=Inter:wght@300;400;500;600&family=Noto+Nastaliq+Urdu:wght@400;700&display=swap');
+/* ═══════════════════════════════════
+   TOKENS — LIGHT (Sunrise West)
+═══════════════════════════════════ */
+:root,
+html[data-theme='light'] .page {
+  --bg:             #faf8f4;
+  --bg-alt:         #f4f0e8;
+  --bg-card:        #ffffff;
+  --bg-code:        #f4f0e8;
+  --surface:        #edeae3;
+  --border:         #e0dbd0;
+  --border-strong:  #c9c2b6;
+  --text-1:         #111110;
+  --text-2:         #5c5850;
+  --text-3:         #9b9489;
+  --accent:         #a85500;
+  --accent-muted:   rgba(168, 85, 0, 0.09);
+  --method-bg:      rgba(168, 85, 0, 0.09);
+  --method-text:    #7a3d00;
+  --badge-bg:       rgba(168, 85, 0, 0.07);
+  --badge-text:     #7a3d00;
+  --badge-border:   rgba(168, 85, 0, 0.2);
+  --btn-1-bg:       #111110;
+  --btn-1-text:     #faf8f4;
+  --btn-1-hover:    #2a2a28;
+  --btn-2-border:   #c9c2b6;
+  --btn-2-text:     #111110;
+  --btn-2-hover:    #edeae3;
+  --code-text:      #3d3a35;
+  --ep-bg:          #ffffff;
+  --ep-hover:       #fefcf8;
+  --ep-border:      #e0dbd0;
+  --ep-hover-border:#c9a86c;
+  --ep-arrow:       #00a8cc;
+  --book-year:      #a85500;
+}
+
+/* ═══════════════════════════════════
+   TOKENS — DARK (from JSON)
+═══════════════════════════════════ */
+html[data-theme='dark'] .page {
+  --bg:             #000000;
+  --bg-alt:         #09090b;
+  --bg-card:        #09090b;
+  --bg-code:        #09090b;
+  --surface:        #18181b;
+  --border:         #27272a;
+  --border-strong:  #3f3f46;
+  --text-1:         #ffffff;
+  --text-2:         #a1a1aa;
+  --text-3:         #71717a;
+  --accent:         #ca8a04;
+  --accent-muted:   rgba(202, 138, 4, 0.09);
+  --method-bg:      rgba(202, 138, 4, 0.1);
+  --method-text:    #ca8a04;
+  --badge-bg:       rgba(202, 138, 4, 0.08);
+  --badge-text:     #ca8a04;
+  --badge-border:   rgba(202, 138, 4, 0.25);
+  --btn-1-bg:       #ffffff;
+  --btn-1-text:     #000000;
+  --btn-1-hover:    #e4e4e7;
+  --btn-2-border:   #27272a;
+  --btn-2-text:     #ffffff;
+  --btn-2-hover:    #18181b;
+  --code-text:      #a1a1aa;
+  --ep-bg:          #09090b;
+  --ep-hover:       #0f0e09;
+  --ep-border:      #27272a;
+  --ep-hover-border:rgba(202, 138, 4, 0.4);
+  --ep-arrow:       #00d1ff;
+  --book-year:      #ca8a04;
+}
+
+/* ═══════════════════════════════════
+   BASE
+═══════════════════════════════════ */
+.page {
+  font-family: 'Inter', -apple-system, sans-serif;
+  background: var(--bg);
+}
+
+/* ═══════════════════════════════════
+   HERO
+═══════════════════════════════════ */
+.hero {
+  background: var(--bg);
+  /* border-bottom: 1px solid var(--border); */
+  padding: 8rem 2rem 6rem;
+  text-align: center;
+  min-height: 88vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.heroInner {
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.badge {
+  display: inline-block;
+  padding: 0.25rem 0.85rem;
+  background: var(--badge-bg);
+  border: 1px solid var(--badge-border);
+  color: var(--badge-text);
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  border-radius: 999px;
+  margin-bottom: 1.75rem;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.heroTitle {
+  font-family: 'Bodoni Moda', 'Bodoni MT', 'Didot', Georgia, serif;
+  font-size: clamp(4.5rem, 14vw, 9rem);
+  font-weight: 400;
+  color: var(--text-1);
+  line-height: 1;
+  letter-spacing: -0.02em;
+  margin: 0 0 0.75rem;
+}
+
+.heroUrdu {
+  font-family: 'Noto Nastaliq Urdu', 'Mehr Nastaliq Web', serif;
+  font-size: clamp(1.1rem, 3vw, 1.6rem);
+  color: var(--accent);
+  direction: rtl;
+  margin: 0 0 1.5rem;
+  line-height: 2;
+}
+
+.tagline {
+  font-size: clamp(0.95rem, 2vw, 1.1rem);
+  color: var(--text-2);
+  line-height: 1.75;
+  font-weight: 300;
+  margin: 0 0 2.5rem;
+}
+
+.tagline strong {
+  color: var(--text-1);
+  font-weight: 500;
+}
+
+.ctas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  justify-content: center;
+}
+
+.divider {
+  width: 90%;
+  height: 1px;
+  background: var(--border);
+  margin: 0 auto;
+}
+
+/* ═══════════════════════════════════
+   BUTTONS
+═══════════════════════════════════ */
+.btnPrimary {
+  display: inline-block;
+  padding: 0.65rem 1.5rem;
+  background: var(--btn-1-bg);
+  color: var(--btn-1-text) !important;
+  font-size: 0.875rem;
+  font-weight: 500;
+  border-radius: 6px;
+  text-decoration: none !important;
+  border: 1px solid transparent;
+  transition: background 0.15s;
+  cursor: pointer;
+  font-family: 'Inter', sans-serif;
+}
+.btnPrimary:hover { background: var(--btn-1-hover); }
+
+.btnOutline {
+  display: inline-block;
+  padding: 0.65rem 1.5rem;
+  background: transparent;
+  color: var(--btn-2-text) !important;
+  font-size: 0.875rem;
+  font-weight: 500;
+  border-radius: 6px;
+  border: 1px solid var(--btn-2-border);
+  text-decoration: none !important;
+  transition: background 0.15s, border-color 0.15s;
+  font-family: 'Inter', sans-serif;
+}
+.btnOutline:hover { background: var(--btn-2-hover); border-color: var(--border-strong); }
+
+.btnGhost {
+  display: inline-block;
+  padding: 0.65rem 1.5rem;
+  background: transparent;
+  color: var(--text-3) !important;
+  font-size: 0.875rem;
+  font-weight: 400;
+  border-radius: 6px;
+  border: 1px solid transparent;
+  text-decoration: none !important;
+  transition: color 0.15s;
+  font-family: 'Inter', sans-serif;
+}
+.btnGhost:hover { color: var(--text-1) !important; }
+
+/* ═══════════════════════════════════
+   SECTIONS
+═══════════════════════════════════ */
+.section {
+  padding: 5.5rem 2rem;
+  background: var(--bg);
+  border-bottom: 1px solid var(--border);
+}
+
+.sectionAlt {
+  background: var(--bg-alt);
+}
+
+.sectionIndented {
+  padding-left: 0%;
+  padding-right: 0%;
+}
+
+.ctaSection {
+  text-align: center;
+  padding: 7rem 2rem;
+}
+
+.container {
+  max-width: 920px;
+  margin: 0 auto;
+}
+
+.containerNarrow {
+  padding-left: 20%;
+  padding-right: 20%;
+}
+
+.label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin: 0 0 0.4rem;
+}
+
+.sectionTitle {
+  font-family: 'Bodoni Moda', 'Bodoni MT', 'Didot', Georgia, serif;
+  font-size: clamp(1.65rem, 4vw, 2.4rem);
+  font-weight: 400;
+  color: var(--text-1);
+  letter-spacing: -0.01em;
+  margin: 0 0 2.5rem;
+  line-height: 1.2;
+}
+
+/* ═══════════════════════════════════
+   BOOKS GRID
+═══════════════════════════════════ */
+.bookGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1rem;
+}
+
+.bookCard {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 1.5rem 1.25rem;
+  transition: border-color 0.15s;
+}
+
+.bookCard:hover {
+  border-color: var(--border-strong);
+}
+
+.bookYear {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.72rem;
+  font-weight: 500;
+  color: var(--book-year);
+  margin-bottom: 0.6rem;
+  letter-spacing: 0.05em;
+}
+
+.bookEn {
+  font-family: 'Bodoni Moda', Georgia, serif;
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--text-1);
+  margin: 0 0 0.3rem;
+  line-height: 1.3;
+}
+
+.bookUr {
+  font-family: 'Noto Nastaliq Urdu', 'Mehr Nastaliq Web', serif;
+  font-size: 1rem;
+  color: var(--accent);
+  direction: rtl;
+  margin: 0 0 0.75rem;
+  line-height: 2;
+}
+
+.bookDesc {
+  font-size: 0.82rem;
+  color: var(--text-2);
+  line-height: 1.65;
+  margin: 0;
+}
+
+/* ═══════════════════════════════════
+   ENDPOINT ROWS
+═══════════════════════════════════ */
+.endpointList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.375rem;
+}
+
+.endpointRow {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.9rem 1.125rem;
+  background: var(--ep-bg);
+  border: 1px solid var(--ep-border);
+  border-radius: 8px;
+  text-decoration: none !important;
+  transition: border-color 0.15s, background 0.15s;
+  cursor: pointer;
+}
+
+.endpointRow:hover {
+  border-color: var(--ep-hover-border);
+  background: var(--ep-hover);
+}
+
+.method {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.66rem;
+  font-weight: 500;
+  color: var(--method-text);
+  background: var(--method-bg);
+  padding: 0.2rem 0.55rem;
+  border-radius: 4px;
+  min-width: 38px;
+  text-align: center;
+  flex-shrink: 0;
+}
+
+.path {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.875rem;
+  color: var(--text-1);
+  flex: 1;
+  background: transparent;
+  border: none;
+  padding: 0;
+}
+
+.edesc {
+  font-size: 0.8rem;
+  color: var(--text-3);
+  font-family: 'Inter', sans-serif;
+}
+
+/* API tile arrow stays cyan/blue in both modes */
+.earrow {
+  font-size: 0.8rem;
+  color: var(--ep-arrow);
+  transition: opacity 0.15s;
+}
+
+.endpointRow:hover .earrow {
+  opacity: 0.7;
+}
+
+/* ═══════════════════════════════════
+   FEATURE CARDS (individual, no grid-line style)
+═══════════════════════════════════ */
+.featureGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 1rem;
+}
+
+.featureCard {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 1.5rem;
+  transition: border-color 0.15s;
+}
+
+.featureCard:hover {
+  border-color: var(--border-strong);
+}
+
+.featureIcon {
+  font-size: 1.3rem;
+  display: block;
+  margin-bottom: 0.75rem;
+}
+
+.featureTitle {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text-1);
+  margin: 0 0 0.4rem;
+}
+
+.featureDesc {
+  font-size: 0.85rem;
+  color: var(--text-2);
+  line-height: 1.65;
+  margin: 0;
+}
+
+/* ═══════════════════════════════════
+   CODE BLOCK
+═══════════════════════════════════ */
+.codeBlock {
+  background: var(--bg-code);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 1.5rem;
+  overflow-x: auto;
+}
+
+.codeBlock pre {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.85rem;
+  color: var(--code-text);
+  margin: 0;
+  line-height: 1.75;
+  background: transparent;
+}
+
+/* ═══════════════════════════════════
+   CTA
+═══════════════════════════════════ */
+.ctaTitle {
+  font-family: 'Bodoni Moda', Georgia, serif;
+  font-size: clamp(2rem, 5vw, 3rem);
+  font-weight: 400;
+  color: var(--text-1);
+  margin: 0 0 0.5rem;
+  letter-spacing: -0.01em;
+}
+
+.ctaSub {
+  font-size: 1rem;
+  color: var(--text-2);
+  margin: 0 0 2rem;
+  font-weight: 300;
+}
+
+/* ═══════════════════════════════════
+   RESPONSIVE
+═══════════════════════════════════ */
+@media (max-width: 600px) {
+  .edesc { display: none; }
+  .ctas { flex-direction: column; align-items: center; }
+  .path { font-size: 0.75rem; }
+  .bookGrid { grid-template-columns: 1fr 1fr; }
+}
