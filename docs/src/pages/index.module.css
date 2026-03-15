@@ -87,13 +87,20 @@ html[data-theme='dark'] .page {
 .hero {
   background: var(--bg);
   /* border-bottom: 1px solid var(--border); */
-  padding: 8rem 2rem 6rem;
+  padding: 4rem 2rem 6rem;
   text-align: center;
   min-height: 88vh;
   display: flex;
   align-items: center;
   justify-content: center;
 }
+/* 
+.logoWrapper { animation-delay: 0.1s; }
+.badge       { animation-delay: 0.2s; }
+.heroTitle   { animation-delay: 0.3s; }
+.heroUrdu    { animation-delay: 0.4s; }
+.tagline     { animation-delay: 0.5s; }
+.ctas        { animation-delay: 0.6s; } */
 
 .heroInner {
   max-width: 700px;
@@ -149,6 +156,32 @@ html[data-theme='dark'] .page {
   direction: rtl;
   margin: 0 0 1.5rem;
   line-height: 2;
+}
+
+.logoWrapper {
+  display: flex;
+  justify-content: center;
+  margin-top: -10px;
+  margin-bottom: 1.5rem; /* Space between logo and badge */
+}
+
+.heroLogo {
+  animation: heroReveal 0.9s 0s ease both;
+  height: 80px;
+  width: auto;
+  /* This creates a subtle neon glow using your brand Cyan */
+  /* filter: drop-shadow(0 0 1.5px var(--accent)); */
+  transition: transform 0.3s ease;
+}
+
+.heroLogo:hover {
+  /* Subtle interaction for a 'living' UI */
+  transform: scale(1.05);
+  /* filter: drop-shadow(0 0 30px var(--accent)); */
+}
+
+html[data-theme='dark'] .heroLogo {
+  filter: brightness(0) invert(1);
 }
 
 .tagline {

@@ -62,6 +62,13 @@ export default function Home() {
         {/* ── HERO ── */}
         <section className={styles.hero}>
           <div className={styles.heroInner}>
+             <div className={styles.logoWrapper}>
+      <img 
+        src="/img/logo.svg" 
+        alt="IqbalAPI Logo" 
+        className={styles.heroLogo} 
+      />
+    </div>
             <span className={styles.badge}>Free &amp; Open Source</span>
             <h1 className={styles.heroTitle}>IqbalAPI</h1>
             <p className={styles.heroUrdu}>خودی کو کر بلند اتنا</p>
