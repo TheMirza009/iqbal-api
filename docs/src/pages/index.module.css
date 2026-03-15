@@ -98,9 +98,24 @@ html[data-theme='dark'] .page {
 .heroInner {
   max-width: 700px;
   margin: 0 auto;
+  /* animation: heroReveal 0.9s ease both; */
+}
+
+@keyframes heroReveal {
+  from {
+    opacity: 0;
+    filter: blur(12px);
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    filter: blur(0px);
+    transform: translateY(0);
+  }
 }
 
 .badge {
+  animation: heroReveal 0.9s 0s ease both;
   display: inline-block;
   padding: 0.25rem 0.85rem;
   background: var(--badge-bg);
@@ -116,6 +131,7 @@ html[data-theme='dark'] .page {
 }
 
 .heroTitle {
+  animation: heroReveal 0.9s 0s ease both;
   font-family: 'Bodoni Moda', 'Bodoni MT', 'Didot', Georgia, serif;
   font-size: clamp(4.5rem, 14vw, 9rem);
   font-weight: 500;
@@ -126,6 +142,7 @@ html[data-theme='dark'] .page {
 }
 
 .heroUrdu {
+  animation: heroReveal 0.9s 0s ease both;
   font-family: 'Noto Nastaliq Urdu', 'Mehr Nastaliq Web', serif;
   font-size: clamp(1.1rem, 3vw, 1.6rem);
   color: var(--accent);
@@ -135,6 +152,7 @@ html[data-theme='dark'] .page {
 }
 
 .tagline {
+  animation: heroReveal 0.9s 0s ease both;
   font-size: clamp(0.95rem, 2vw, 1.1rem);
   color: var(--text-2);
   line-height: 1.75;
@@ -143,11 +161,13 @@ html[data-theme='dark'] .page {
 }
 
 .tagline strong {
+  animation: heroReveal 0.9s 0s ease both;
   color: var(--text-1);
   font-weight: 500;
 }
 
 .ctas {
+  animation: heroReveal 0.9s 0s ease both;
   display: flex;
   flex-wrap: wrap;
   gap: 0.6rem;
