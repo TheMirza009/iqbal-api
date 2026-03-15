@@ -1,0 +1,812 @@
+@import url('https://fonts.googleapis.com/css2?family=Prata&family=JetBrains+Mono:wght@400;500&family=Inter:wght@300;400;500;600&family=Noto+Nastaliq+Urdu:wght@400;700&display=swap');
+
+/* ═══════════════════════════════════
+   TOKENS
+═══════════════════════════════════ */
+:root,
+html[data-theme='light'] {
+  --pg-bg:          #faf8f4;
+  --pg-surface:     #ffffff;
+  --pg-surface-alt: #f4f0e8;
+  --pg-border:      #e0dbd0;
+  --pg-border-hover:#c9c2b6;
+  --pg-text-1:      #111110;
+  --pg-text-2:      #5c5850;
+  --pg-text-3:      #9b9489;
+  --pg-accent:      #a85500;
+  --pg-accent-muted:rgba(168, 85, 0, 0.08);
+  --pg-code-bg:     #f4f0e8;
+  --pg-error-bg:    rgba(220, 38, 38, 0.06);
+  --pg-error-text:  #dc2626;
+  --pg-tab-active:  #111110;
+  --pg-tab-text:    #111110;
+  --pg-tab-active-text: #faf8f4;
+}
+
+html[data-theme='dark'] {
+  --pg-bg:          #000000;
+  --pg-surface:     #09090b;
+  --pg-surface-alt: #111113;
+  --pg-border:      #27272a;
+  --pg-border-hover:#3f3f46;
+  --pg-text-1:      #ffffff;
+  --pg-text-2:      #a1a1aa;
+  --pg-text-3:      #71717a;
+  --pg-accent:      #ca8a04;
+  --pg-accent-muted:rgba(202, 138, 4, 0.08);
+  --pg-code-bg:     #09090b;
+  --pg-error-bg:    rgba(220, 38, 38, 0.08);
+  --pg-error-text:  #f87171;
+  --pg-tab-active:  #ffffff;
+  --pg-tab-text:    #ffffff;
+  --pg-tab-active-text: #000000;
+}
+
+/* ═══════════════════════════════════
+   PAGE
+═══════════════════════════════════ */
+.page {
+  background: var(--pg-bg);
+  min-height: 100vh;
+  font-family: 'Inter', sans-serif;
+}
+
+/* ═══════════════════════════════════
+   HEADER
+═══════════════════════════════════ */
+.header {
+  padding: 3rem 2rem 2rem;
+  max-width: 900px;
+  margin: 0 auto;
+  border-bottom: 1px solid var(--pg-border);
+}
+
+.title {
+  font-family: 'Prata', Georgia, serif;
+  font-size: clamp(1.8rem, 4vw, 2.5rem);
+  font-weight: 400;
+  color: var(--pg-text-1);
+  margin: 0 0 0.5rem;
+  letter-spacing: -0.01em;
+}
+
+.subtitle {
+  font-size: 0.95rem;
+  color: var(--pg-text-2);
+  margin: 0 0 1.25rem;
+}
+
+.subtitle a {
+  color: var(--pg-accent);
+  text-decoration: none;
+}
+
+.subtitle a:hover {
+  text-decoration: underline;
+}
+
+.baseUrl {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.5rem 0.875rem;
+  background: var(--pg-surface);
+  border: 1px solid var(--pg-border);
+  border-radius: 6px;
+}
+
+.baseUrlLabel {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  color: var(--pg-accent);
+}
+
+.baseUrlCode {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.8rem;
+  color: var(--pg-text-1);
+  background: transparent;
+  border: none;
+  padding: 0;
+}
+
+/* ═══════════════════════════════════
+   TABS
+═══════════════════════════════════ */
+.tabs {
+  display: flex;
+  gap: 0.5rem;
+  padding: 1.25rem 2rem;
+  max-width: 900px;
+  margin: 0 auto;
+  border-bottom: 1px solid var(--pg-border);
+  flex-wrap: wrap;
+}
+
+.tab {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0.6rem 1rem;
+  background: transparent;
+  border: 1px solid var(--pg-border);
+  border-radius: 7px;
+  cursor: pointer;
+  transition: border-color 0.15s, background 0.15s;
+  color: var(--pg-tab-text);
+  gap: 0.2rem;
+}
+
+.tab:hover {
+  border-color: var(--pg-border-hover);
+  background: var(--pg-surface);
+}
+
+.tabActive {
+  background: var(--pg-tab-active) !important;
+  border-color: var(--pg-tab-active) !important;
+  color: var(--pg-tab-active-text) !important;
+}
+
+.tabActive .tabEndpoint {
+  color: var(--pg-tab-active-text) !important;
+  opacity: 0.6;
+}
+
+.tabLabel {
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.tabEndpoint {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.68rem;
+  color: var(--pg-text-3);
+}
+
+/* ═══════════════════════════════════
+   CONTENT
+═══════════════════════════════════ */
+.content {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.tabContent {
+  animation: fadeIn 0.2s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ═══════════════════════════════════
+   SEARCH
+═══════════════════════════════════ */
+.searchForm {
+  margin-bottom: 2rem;
+}
+
+.searchRow {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.searchInput {
+  flex: 1;
+  padding: 0.75rem 1rem;
+  background: var(--pg-surface);
+  border: 1px solid var(--pg-border);
+  border-radius: 7px;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.95rem;
+  color: var(--pg-text-1);
+  outline: none;
+  transition: border-color 0.15s;
+}
+
+.searchInput:focus {
+  border-color: var(--pg-accent);
+}
+
+.searchInput::placeholder {
+  color: var(--pg-text-3);
+}
+
+.searchBtn {
+  padding: 0.75rem 1.5rem;
+  background: var(--pg-accent);
+  color: #fff;
+  border: none;
+  border-radius: 7px;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: opacity 0.15s;
+  white-space: nowrap;
+}
+
+.searchBtn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.searchHint {
+  font-size: 0.78rem;
+  color: var(--pg-text-3);
+  margin: 0.5rem 0 0;
+}
+
+.searchPrompt {
+  text-align: center;
+  padding: 4rem 0;
+  color: var(--pg-text-3);
+  font-size: 0.9rem;
+}
+
+.suggestion {
+  background: var(--pg-accent-muted);
+  border: 1px solid var(--pg-border);
+  border-radius: 4px;
+  padding: 0.15rem 0.5rem;
+  color: var(--pg-accent);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.85rem;
+  cursor: pointer;
+  margin: 0 0.2rem;
+  transition: background 0.15s;
+}
+
+.suggestion:hover {
+  background: var(--pg-accent);
+  color: white;
+}
+
+/* ═══════════════════════════════════
+   RESULTS META
+═══════════════════════════════════ */
+.resultsMeta {
+  display: flex;
+  gap: 1.5rem;
+  padding: 1rem 1.25rem;
+  background: var(--pg-surface);
+  border: 1px solid var(--pg-border);
+  border-radius: 8px;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+}
+
+.metaStat {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+}
+
+.metaStatNum {
+  font-family: 'Prata', Georgia, serif;
+  font-size: 1.5rem;
+  color: var(--pg-text-1);
+  line-height: 1;
+}
+
+.metaStatLabel {
+  font-size: 0.72rem;
+  color: var(--pg-text-3);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+/* ═══════════════════════════════════
+   SECTIONS
+═══════════════════════════════════ */
+.section {
+  margin-bottom: 2.5rem;
+}
+
+.sectionTitle {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 400;
+  color: var(--pg-text-3);
+  border-bottom: 1px solid var(--pg-border);
+  padding-bottom: 0.6rem;
+}
+
+.sectionEndpoint {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.78rem;
+  color: var(--pg-accent);
+  background: var(--pg-accent-muted);
+  padding: 0.15rem 0.5rem;
+  border-radius: 4px;
+}
+
+.sectionCount {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.72rem;
+  color: var(--pg-text-3);
+  background: var(--pg-surface);
+  border: 1px solid var(--pg-border);
+  padding: 0.1rem 0.4rem;
+  border-radius: 4px;
+}
+
+/* ═══════════════════════════════════
+   GRIDS
+═══════════════════════════════════ */
+.bookGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1rem;
+}
+
+.poemGrid {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.verseGrid {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+/* ═══════════════════════════════════
+   BOOK CARD
+═══════════════════════════════════ */
+.bookCard {
+  background: var(--pg-surface);
+  border: 1px solid var(--pg-border);
+  border-radius: 9px;
+  padding: 1.25rem;
+  transition: border-color 0.15s;
+}
+
+.bookCard:hover {
+  border-color: var(--pg-border-hover);
+}
+
+.bookYear {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  color: var(--pg-accent);
+  margin-bottom: 0.5rem;
+}
+
+.bookTitle {
+  font-family: 'Prata', Georgia, serif;
+  font-size: 1rem;
+  font-weight: 400;
+  color: var(--pg-text-1);
+  margin: 0 0 0.3rem;
+  line-height: 1.3;
+}
+
+.bookUrdu {
+  font-family: 'Noto Nastaliq Urdu', serif;
+  font-size: 0.95rem;
+  color: var(--pg-accent);
+  margin: 0 0 1rem;
+  line-height: 2;
+}
+
+.browseBtn {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--pg-accent);
+  background: var(--pg-accent-muted);
+  border: 1px solid transparent;
+  border-radius: 5px;
+  padding: 0.35rem 0.75rem;
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s;
+}
+
+.browseBtn:hover {
+  border-color: var(--pg-accent);
+}
+
+/* ═══════════════════════════════════
+   POEM CARD
+═══════════════════════════════════ */
+.poemCard {
+  background: var(--pg-surface);
+  border: 1px solid var(--pg-border);
+  border-radius: 9px;
+  overflow: hidden;
+  transition: border-color 0.15s;
+}
+
+.poemCard:hover {
+  border-color: var(--pg-border-hover);
+}
+
+.poemHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.1rem 1.25rem;
+  cursor: pointer;
+  gap: 1rem;
+}
+
+.poemInfo {
+  flex: 1;
+  min-width: 0;
+}
+
+.poemMeta {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.4rem;
+  flex-wrap: wrap;
+}
+
+.poemTitle {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--pg-text-1);
+  margin: 0 0 0.2rem;
+  line-height: 1.4;
+}
+
+.poemUrduTitle {
+  font-family: 'Noto Nastaliq Urdu', serif;
+  font-size: 0.85rem;
+  color: var(--pg-text-2);
+  margin: 0;
+  line-height: 2;
+}
+
+.expandBtn {
+  background: var(--pg-surface-alt);
+  border: 1px solid var(--pg-border);
+  border-radius: 5px;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 0.85rem;
+  color: var(--pg-text-2);
+  flex-shrink: 0;
+  transition: background 0.15s;
+}
+
+.expandBtn:hover {
+  background: var(--pg-border);
+}
+
+.verseList {
+  border-top: 1px solid var(--pg-border);
+  padding: 0.75rem 0;
+}
+
+.verseRow {
+  display: flex;
+  gap: 1rem;
+  padding: 0.75rem 1.25rem;
+  border-bottom: 1px solid var(--pg-border);
+  align-items: flex-start;
+}
+
+.verseRow:last-child {
+  border-bottom: none;
+}
+
+.verseNum {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  color: var(--pg-text-3);
+  background: var(--pg-surface-alt);
+  border: 1px solid var(--pg-border);
+  border-radius: 4px;
+  padding: 0.15rem 0.4rem;
+  min-width: 28px;
+  text-align: center;
+  flex-shrink: 0;
+  margin-top: 0.25rem;
+}
+
+.verseTexts {
+  flex: 1;
+}
+
+/* ═══════════════════════════════════
+   VERSE CARD (search results)
+═══════════════════════════════════ */
+.verseCard {
+  background: var(--pg-surface);
+  border: 1px solid var(--pg-border);
+  border-radius: 9px;
+  padding: 1.1rem 1.25rem;
+  transition: border-color 0.15s;
+}
+
+.verseCard:hover {
+  border-color: var(--pg-border-hover);
+}
+
+.verseMeta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-bottom: 0.75rem;
+  align-items: center;
+}
+
+/* ═══════════════════════════════════
+   SHARED META BADGES
+═══════════════════════════════════ */
+.metaBook {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.68rem;
+  color: var(--pg-accent);
+  background: var(--pg-accent-muted);
+  padding: 0.15rem 0.5rem;
+  border-radius: 999px;
+}
+
+.metaPoem {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.72rem;
+  color: var(--pg-text-3);
+  background: var(--pg-surface-alt);
+  border: 1px solid var(--pg-border);
+  padding: 0.15rem 0.5rem;
+  border-radius: 999px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 200px;
+}
+
+.metaNo {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.68rem;
+  color: var(--pg-text-3);
+  background: var(--pg-surface-alt);
+  border: 1px solid var(--pg-border);
+  padding: 0.15rem 0.5rem;
+  border-radius: 999px;
+}
+
+.metaVerse {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.68rem;
+  color: var(--pg-text-3);
+  background: var(--pg-surface-alt);
+  border: 1px solid var(--pg-border);
+  padding: 0.15rem 0.5rem;
+  border-radius: 999px;
+}
+
+/* ═══════════════════════════════════
+   VERSE TEXT
+═══════════════════════════════════ */
+.verseUrdu {
+  font-family: 'Noto Nastaliq Urdu', serif;
+  font-size: 1.05rem;
+  color: var(--pg-text-1);
+  margin: 0 0 0.5rem;
+  line-height: 2.2;
+  text-align: right;
+}
+
+.verseEnglish {
+  font-size: 0.875rem;
+  color: var(--pg-text-2);
+  margin: 0;
+  line-height: 1.65;
+  font-style: italic;
+}
+
+/* ═══════════════════════════════════
+   BOOKS BROWSE
+═══════════════════════════════════ */
+.browseHint {
+  font-size: 0.85rem;
+  color: var(--pg-text-3);
+  margin: 0 0 1.25rem;
+}
+
+.bookBreadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.backBtn {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.85rem;
+  color: var(--pg-accent);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  transition: opacity 0.15s;
+}
+
+.backBtn:hover { opacity: 0.7; }
+
+.breadcrumbSep {
+  color: var(--pg-text-3);
+  font-size: 0.85rem;
+}
+
+.breadcrumbCurrent {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--pg-text-1);
+}
+
+.breadcrumbUrdu {
+  font-family: 'Noto Nastaliq Urdu', serif;
+  font-size: 0.9rem;
+  color: var(--pg-accent);
+  line-height: 2;
+}
+
+.breadcrumbCount {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  color: var(--pg-text-3);
+  background: var(--pg-surface);
+  border: 1px solid var(--pg-border);
+  padding: 0.15rem 0.5rem;
+  border-radius: 4px;
+}
+
+/* ═══════════════════════════════════
+   RANDOM COUPLET
+═══════════════════════════════════ */
+.randomHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.randomHint {
+  font-size: 0.85rem;
+  color: var(--pg-text-3);
+  margin: 0;
+}
+
+.randomBtn {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.875rem;
+  font-weight: 500;
+  padding: 0.6rem 1.25rem;
+  background: var(--pg-accent);
+  color: #fff;
+  border: none;
+  border-radius: 7px;
+  cursor: pointer;
+  transition: opacity 0.15s;
+}
+
+.randomBtn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.coupletCard {
+  background: var(--pg-surface);
+  border: 1px solid var(--pg-border);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.coupletLabel {
+  padding: 0.6rem 1.25rem;
+  border-bottom: 1px solid var(--pg-border);
+  background: var(--pg-surface-alt);
+}
+
+.coupletLabel code {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  color: var(--pg-accent);
+  background: transparent;
+  padding: 0;
+  border: none;
+}
+
+.coupletVerse {
+  display: flex;
+  gap: 1rem;
+  padding: 1.1rem 1.25rem;
+  border-bottom: 1px solid var(--pg-border);
+  align-items: flex-start;
+}
+
+.coupletVerse:last-child {
+  border-bottom: none;
+}
+
+.coupletNum {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  color: var(--pg-text-3);
+  background: var(--pg-surface-alt);
+  border: 1px solid var(--pg-border);
+  border-radius: 4px;
+  padding: 0.15rem 0.4rem;
+  min-width: 28px;
+  text-align: center;
+  flex-shrink: 0;
+  margin-top: 0.5rem;
+}
+
+.coupletTexts {
+  flex: 1;
+}
+
+/* ═══════════════════════════════════
+   STATES
+═══════════════════════════════════ */
+.loading {
+  text-align: center;
+  padding: 3rem;
+  color: var(--pg-text-3);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.85rem;
+  letter-spacing: 0.05em;
+}
+
+.empty {
+  text-align: center;
+  padding: 3rem;
+  color: var(--pg-text-3);
+  font-size: 0.9rem;
+}
+
+.error {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.875rem 1.25rem;
+  background: var(--pg-error-bg);
+  border: 1px solid var(--pg-error-text);
+  border-radius: 7px;
+  color: var(--pg-error-text);
+  font-size: 0.875rem;
+  margin-bottom: 1.5rem;
+}
+
+.errorIcon {
+  font-weight: 700;
+  font-size: 1rem;
+}
+
+/* ═══════════════════════════════════
+   RESPONSIVE
+═══════════════════════════════════ */
+@media (max-width: 600px) {
+  .content { padding: 1.25rem; }
+  .header { padding: 2rem 1.25rem 1.5rem; }
+  .tabs { padding: 1rem 1.25rem; }
+  .bookGrid { grid-template-columns: 1fr 1fr; }
+  .resultsMeta { gap: 1rem; }
+  .metaPoem { max-width: 140px; }
+}
