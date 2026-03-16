@@ -77,7 +77,7 @@ export default function Home() {
             </div>
             <span className={styles.badge}>Free &amp; Open Source</span>
             <h1 className={styles.heroTitle}>IqbalAPI</h1>
-            <p className={styles.heroUrdu}>خودی کو کر بلند اتنا</p>
+            <p className={styles.heroUrdu}>ستاروں سے آگے جہاں اوربھی ہیں</p>
             <p className={styles.tagline}>
               A free, structured REST API for the complete Urdu poetry of{" "}
               <strong>Allama Iqbal</strong> — with English translations,

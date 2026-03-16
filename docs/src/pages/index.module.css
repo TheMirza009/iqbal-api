@@ -156,6 +156,7 @@ html[data-theme='dark'] .page {
   direction: rtl;
   margin: 0 0 1.5rem;
   line-height: 2;
+  word-spacing: -0.1em;
 }
 
 .logoWrapper {
