@@ -34,9 +34,28 @@ const config = {
           sidebarPath: './sidebars.js',
           editUrl: 'https://github.com/TheMirza009/iqbal-api/tree/main/docs/',
         },
-        blog: false, // We don't need a blog
+        blog: false, 
         theme: {
           customCss: './src/css/custom.css',
+        },
+        // ADDED: Robots.txt plugin configuration
+        plugins: [
+          [
+            'standalone-plugin-robots-txt', // Ensure this is installed or use standard docusaurus behavior
+            {
+              host: 'https://iqbal-api-docs.up.railway.app',
+              sitemap: 'https://iqbal-api-docs.up.railway.app/sitemap.xml',
+              policy: [{ userAgent: '*', allow: '/' }],
+            },
+          ],
+        ],
+        // ADDED: Sitemap Configuration
+        sitemap: {
+          lastmod: new Date().toISOString(),
+          changefreq: 'weekly',
+          priority: 0.5,
+          ignorePatterns: ['/tags/**'],
+          filename: 'sitemap.xml',
         },
       }),
     ],
@@ -45,11 +64,21 @@ const config = {
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
+      // FIXED: Google Verification should only contain the code, not the full <meta> tag
+      metadata: [
+        {
+          name: 'google-site-verification', 
+          content: 'wLrLxKZ2sqikreG1w2CC75c7tki7w4NrOINrcFQu5oE' 
+        },
+        {
+          name: 'keywords',
+          content: 'Iqbal API, Allama Iqbal, Urdu Poetry API, REST API, Iqbal Poetry English'
+        }
+      ],
       image: 'img/social-card.png',
       colorMode: {
         defaultMode: 'light',
         disableSwitch: false,
-        // respectPrefersColorScheme: true,
       },
       navbar: {
         title: 'IqbalAPI',
@@ -77,14 +106,14 @@ const config = {
         style: 'dark',
         links: [
           {
-  title: 'Documentation',
-  items: [
-    { label: 'Getting Started', to: '/docs/intro' },
-    { label: 'Endpoints', to: '/docs/Reference/endpoints' },
-    { label: 'Search', to: '/docs/Reference/search' },
-    { label: 'Examples', to: '/docs/More/examples' },
-  ],
-},
+            title: 'Documentation',
+            items: [
+              { label: 'Getting Started', to: '/docs/intro' },
+              { label: 'Endpoints', to: '/docs/Reference/endpoints' },
+              { label: 'Search', to: '/docs/Reference/search' },
+              { label: 'Examples', to: '/docs/More/examples' },
+            ],
+          },
           {
             title: 'API',
             items: [
@@ -93,19 +122,23 @@ const config = {
                 href: 'https://iqbal-api.up.railway.app',
               },
               {
+                label: 'Playground',
+                href: 'https://iqbal-api-docs.up.railway.app/playground',
+              },
+              {
                 label: 'Repository',
                 href: 'https://github.com/TheMirza009/iqbal-api',
               },
             ],
           },
           {
-  title: 'Author',
-  items: [
-    { label: 'GitHub', href: 'https://github.com/TheMirza009' },
-    { label: 'LinkedIn', href: 'https://www.linkedin.com/in/mirza-abdulmoeed009/' },
-    { label: 'Portfolio', href: 'https://themirza.vercel.app/' },
-  ],
-},
+            title: 'Author',
+            items: [
+              { label: 'GitHub', href: 'https://github.com/TheMirza009' },
+              { label: 'LinkedIn', href: 'https://www.linkedin.com/in/mirza-abdulmoeed009/' },
+              { label: 'Portfolio', href: 'https://themirza.vercel.app/' },
+            ],
+          },
         ],
         copyright: `Copyright © ${new Date().getFullYear()} Mirza AbdulMoeed. Built with Docusaurus.`,
       },
