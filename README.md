@@ -1,6 +1,17 @@
 <div align="center">
 
-# IqbalAPI
+<!-- # IqbalAPI -->
+
+<!-- Light mode logo -->
+<p align="center">
+  <img src="static/logo-light.svg#gh-light-mode-only" alt="IqbalAPI Logo" width="300">
+</p>
+
+<!-- Dark mode logo -->
+<p align="center">
+  <img src="static/logo-dark.svg#gh-dark-mode-only" alt="IqbalAPI Logo" width="300">
+</p>
+
 
 ### A free, open REST API for Allama Iqbal's poetry.
 
@@ -17,8 +28,8 @@
 
 <div align="center">
 
-**🌐 Live API: [iqbal-api.up.railway.app](https://iqbal-api.up.railway.app)**
-
+**🌐 Live API: [iqbal-api.up.railway.app](https://iqbal-api.up.railway.app)
+**🦅 Documentation:** [iqbal-api-docs.up.railway.app](https://iqbal-api-docs.up.railway.app)**
 </div>
 
 ## 📖 What is IqbalAPI?
