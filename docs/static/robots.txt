@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://iqbal-api-docs.up.railway.app/sitemap.xml
+Host: https://iqbal-api-docs.up.railway.app

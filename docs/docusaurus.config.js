@@ -12,7 +12,7 @@ const config = {
   },
 
   url: 'https://iqbal-api-docs.up.railway.app',
-  baseUrl: '/', 
+  baseUrl: '/',
 
   organizationName: 'TheMirza009',
   projectName: 'iqbal-api',
@@ -34,24 +34,11 @@ const config = {
           sidebarPath: './sidebars.js',
           editUrl: 'https://github.com/TheMirza009/iqbal-api/tree/main/docs/',
         },
-        blog: false, 
+        blog: false,
         theme: {
           customCss: './src/css/custom.css',
         },
-        // ADDED: Robots.txt plugin configuration
-        plugins: [
-          [
-            'standalone-plugin-robots-txt', // Ensure this is installed or use standard docusaurus behavior
-            {
-              host: 'https://iqbal-api-docs.up.railway.app',
-              sitemap: 'https://iqbal-api-docs.up.railway.app/sitemap.xml',
-              policy: [{ userAgent: '*', allow: '/' }],
-            },
-          ],
-        ],
-        // ADDED: Sitemap Configuration
         sitemap: {
-          lastmod: new Date().toISOString(),
           changefreq: 'weekly',
           priority: 0.5,
           ignorePatterns: ['/tags/**'],
@@ -64,16 +51,15 @@ const config = {
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
-      // FIXED: Google Verification should only contain the code, not the full <meta> tag
       metadata: [
         {
-          name: 'google-site-verification', 
-          content: 'wLrLxKZ2sqikreG1w2CC75c7tki7w4NrOINrcFQu5oE' 
+          name: 'google-site-verification',
+          content: 'wLrLxKZ2sqikreG1w2CC75c7tki7w4NrOINrcFQu5oE',
         },
         {
           name: 'keywords',
-          content: 'Iqbal API, Allama Iqbal, Urdu Poetry API, REST API, Iqbal Poetry English'
-        }
+          content: 'Iqbal API, Allama Iqbal, Urdu Poetry API, REST API, Iqbal Poetry English',
+        },
       ],
       image: 'img/social-card.png',
       colorMode: {
