@@ -60,6 +60,7 @@ const config = {
             position: 'left',
             label: 'Documentation',
           },
+          { to: '/playground', label: 'Playground', position: 'left' },
           {
             href: 'https://iqbal-api.up.railway.app',
             label: 'Live API',

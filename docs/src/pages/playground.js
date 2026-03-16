@@ -4,6 +4,100 @@ import styles from './playground.module.css';
 
 const API = 'https://iqbal-api.up.railway.app';
 
+// ── Animated Loading Dots ──────────────────────────────────────────────────
+function LoadingDots({ text = 'Loading' }) {
+  return (
+    <span className={styles.loadingDots}>
+      {text}
+      <span className={styles.dot} style={{ '--i': 0 }}>.</span>
+      <span className={styles.dot} style={{ '--i': 1 }}>.</span>
+      <span className={styles.dot} style={{ '--i': 2 }}>.</span>
+    </span>
+  );
+}
+
+// ── Suggestion pool — pick 4 random, excluding current query ──────────────
+const ALL_SUGGESTIONS = [
+  { label: 'ishq', value: 'ishq' },
+  { label: 'khudi', value: 'khudi' },
+  { label: 'shaeen', value: 'shaeen' },
+  { label: 'ہمت', value: 'ہمت' },
+  { label: 'روشنی', value: 'روشنی' },
+  { label: 'آرزو', value: 'آرزو' },
+  { label: 'watan', value: 'watan' },
+  { label: 'iqbal', value: 'iqbal' },
+  { label: 'dil', value: 'dil' },
+  { label: 'زندگی', value: 'زندگی' },
+  { label: 'mard', value: 'mard' },
+  { label: 'عشق', value: 'عشق' },
+  { label: 'azad', value: 'azad' },
+  { label: 'shama', value: 'shama' },
+];
+
+function pickSuggestions(exclude, count = 4) {
+  const pool = ALL_SUGGESTIONS.filter(
+    s => s.value.toLowerCase() !== (exclude || '').toLowerCase()
+  );
+  // Fisher-Yates shuffle then slice
+  const arr = [...pool];
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+  return arr.slice(0, count);
+}
+
+// ── No Results State ───────────────────────────────────────────────────────
+function NoResults({ query, onReset }) {
+  const [suggestions] = useState(() => pickSuggestions(query));
+  return (
+    <div className={styles.noResults}>
+      <div className={styles.noResultsIcon}>
+        <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="22" cy="22" r="14" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"/>
+          <path d="M32 32L42 42" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"/>
+          <path d="M17 22H27" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+        </svg>
+      </div>
+      <p className={styles.noResultsTitle}>No verses found</p>
+      <p className={styles.noResultsMsg}>
+        No results for <em>"{query}"</em> — try a different word or phrase
+      </p>
+      <div className={styles.noResultsSuggestions}>
+        <span className={styles.noResultsHint}>Try instead:</span>
+        {suggestions.map(s => (
+          <button key={s.value} className={styles.suggestion} onClick={() => onReset(s.value)}>
+            {s.label}
+          </button>
+        ))}
+      </div>
+      <button className={styles.resetBtn} onClick={() => onReset('')}>
+        ← Clear search
+      </button>
+    </div>
+  );
+}
+
+// ── Post-results "Start a new search" bar ─────────────────────────────────
+function NewSearchBar({ currentQuery, onSearch }) {
+  const [suggestions] = useState(() => pickSuggestions(currentQuery));
+  return (
+    <div className={styles.newSearchBarWrap}>
+      <div className={styles.newSearchBar}>
+        <span className={styles.newSearchLabel}>Start a new search:</span>
+        {suggestions.map(s => (
+          <button key={s.value} className={styles.suggestion} onClick={() => onSearch(s.value)}>
+            {s.label}
+          </button>
+        ))}
+      </div>
+      <button className={styles.resetBtn} onClick={() => onSearch('')}>
+        ← Clear search
+      </button>
+    </div>
+  );
+}
+
 // ── Verse Card ─────────────────────────────────────────────────────────────
 function VerseCard({ verse, meta }) {
   return (
@@ -59,7 +153,7 @@ function PoemCard({ poem, bookName }) {
           <p className={styles.poemUrduTitle} dir="rtl">{poem.name_urdu}</p>
         </div>
         <button className={styles.expandBtn}>
-          {loading ? '···' : expanded ? '↑' : '↓'}
+          {loading ? <LoadingDots text="" /> : expanded ? '↑' : '↓'}
         </button>
       </div>
 
@@ -94,6 +188,76 @@ function BookCard({ book, onBrowse }) {
   );
 }
 
+// ── Collapsible poem list with truncation ──────────────────────────────────
+function TruncatedPoemList({ poems, bookName, initialCount = 3 }) {
+  const [expanded, setExpanded] = useState(false);
+  const visible = expanded ? poems : poems.slice(0, initialCount);
+  const hidden = poems.length - initialCount;
+
+  return (
+    <>
+      <div className={styles.poemGrid}>
+        {visible.map(p => (
+          <PoemCard key={p.id} poem={p} bookName={bookName} />
+        ))}
+      </div>
+      {!expanded && hidden > 0 && (
+        <button className={styles.showAllBtn} onClick={() => setExpanded(true)}>
+          Show all {poems.length} results
+          <span className={styles.showAllChevron}>↓</span>
+        </button>
+      )}
+      {expanded && poems.length > initialCount && (
+        <button className={styles.showAllBtn} onClick={() => setExpanded(false)}>
+          Collapse
+          <span className={styles.showAllChevron}>↑</span>
+        </button>
+      )}
+    </>
+  );
+}
+
+// ── Collapsible verse list with truncation ─────────────────────────────────
+function TruncatedVerseList({ verses, results, initialCount = 3 }) {
+  const [expanded, setExpanded] = useState(false);
+  const visible = expanded ? verses : verses.slice(0, initialCount);
+  const hidden = verses.length - initialCount;
+
+  return (
+    <>
+      <div className={styles.verseGrid}>
+        {visible.map(v => {
+          const poem = results.poems?.find(p => p.id === v.poem_id);
+          const book = results.books?.find(b => b.id === v.book_id);
+          return (
+            <VerseCard
+              key={v.id}
+              verse={v}
+              meta={{
+                bookName: book?.name,
+                poemName: poem?.name,
+                poemNo: poem?.poem_no,
+              }}
+            />
+          );
+        })}
+      </div>
+      {!expanded && hidden > 0 && (
+        <button className={styles.showAllBtn} onClick={() => setExpanded(true)}>
+          Show all {verses.length} results
+          <span className={styles.showAllChevron}>↓</span>
+        </button>
+      )}
+      {expanded && verses.length > initialCount && (
+        <button className={styles.showAllBtn} onClick={() => setExpanded(false)}>
+          Collapse
+          <span className={styles.showAllChevron}>↑</span>
+        </button>
+      )}
+    </>
+  );
+}
+
 // ── Main Playground ────────────────────────────────────────────────────────
 export default function Playground() {
   const [tab, setTab] = useState('search');
@@ -115,16 +279,18 @@ export default function Playground() {
   // Random tab
   const [random, setRandom] = useState(null);
   const [randomLoading, setRandomLoading] = useState(false);
+  const [randomMeta, setRandomMeta] = useState(null);
 
   // ── Search ───────────────────────────────────────────────────────────────
-  const search = useCallback(async (e) => {
+  const search = useCallback(async (e, overrideQuery) => {
     e?.preventDefault();
-    if (!query.trim()) return;
+    const q = overrideQuery !== undefined ? overrideQuery : query;
+    if (!q.trim()) return;
     setLoading(true);
     setError(null);
     setResults(null);
     try {
-      const res = await fetch(`${API}/search?term=${encodeURIComponent(query)}&count=20&page=1`);
+      const res = await fetch(`${API}/search?term=${encodeURIComponent(q)}&count=20&page=1`);
       const data = await res.json();
       if (data.error) throw new Error(data.error);
       setResults(data);
@@ -133,6 +299,24 @@ export default function Playground() {
     }
     setLoading(false);
   }, [query]);
+
+  const handleReset = (newQuery) => {
+    setResults(null);
+    setError(null);
+    setQuery(newQuery);
+    if (newQuery) {
+      // Trigger search with new query
+      setLoading(true);
+      fetch(`${API}/search?term=${encodeURIComponent(newQuery)}&count=20&page=1`)
+        .then(r => r.json())
+        .then(data => {
+          if (data.error) throw new Error(data.error);
+          setResults(data);
+        })
+        .catch(err => setError(err.message || 'Something went wrong'))
+        .finally(() => setLoading(false));
+    }
+  };
 
   // ── Load Books ───────────────────────────────────────────────────────────
   const loadBooks = useCallback(async () => {
@@ -154,9 +338,7 @@ export default function Playground() {
     try {
       const res = await fetch(`${API}/poems?count=${POEMS_PER_PAGE}&page=${page}`);
       const data = await res.json();
-      // Filter by book_id
       const filtered = (data.poems || data).filter(p => p.book_id === book.id);
-      // Get total for this book via complete book
       if (page === 1) {
         const bookRes = await fetch(`${API}/books/${book.id}`);
         const bookData = await bookRes.json();
@@ -173,10 +355,32 @@ export default function Playground() {
   const loadRandom = useCallback(async () => {
     setRandomLoading(true);
     setRandom(null);
+    setRandomMeta(null);
     try {
       const res = await fetch(`${API}/verses/random`);
       const data = await res.json();
       setRandom(data);
+
+      // Try to get metadata for the first verse
+      if (data && data.length > 0 && data[0].poem_id) {
+        try {
+          const poemRes = await fetch(`${API}/poems/${data[0].poem_id}`);
+          const poemData = await poemRes.json();
+          // Fetch book separately — poem endpoint doesn't embed book_name
+          let bookName = poemData.book_name || poemData.book?.name;
+          if (!bookName && poemData.book_id) {
+            const bookRes = await fetch(`${API}/books/${poemData.book_id}`);
+            const bookData = await bookRes.json();
+            bookName = bookData.name;
+          }
+          setRandomMeta({
+            bookName,
+            poemName: poemData.name,
+            poemNameUrdu: poemData.name_urdu,
+            poemNo: poemData.poem_no,
+          });
+        } catch (_) {}
+      }
     } catch (e) { console.error(e); }
     setRandomLoading(false);
   }, []);
@@ -232,20 +436,32 @@ export default function Playground() {
             <div className={styles.tabContent}>
               <form onSubmit={search} className={styles.searchForm}>
                 <div className={styles.searchRow}>
-                  <input
-                    className={styles.searchInput}
-                    type="text"
-                    value={query}
-                    onChange={e => setQuery(e.target.value)}
-                    placeholder="Search in English or Urdu — e.g. khudi or خودی"
-                    autoFocus
-                  />
+                  <div className={styles.searchInputWrap}>
+                    <input
+                      className={styles.searchInput}
+                      type="text"
+                      value={query}
+                      onChange={e => setQuery(e.target.value)}
+                      placeholder="Search in English or Urdu — e.g. khudi or خودی"
+                      autoFocus
+                    />
+                    {query && (
+                      <button
+                        type="button"
+                        className={styles.searchClearBtn}
+                        onClick={() => setQuery('')}
+                        aria-label="Clear search"
+                      >
+                        ×
+                      </button>
+                    )}
+                  </div>
                   <button
                     type="submit"
                     className={styles.searchBtn}
                     disabled={loading || !query.trim()}
                   >
-                    {loading ? '···' : 'Search'}
+                    {loading ? <LoadingDots text="Searching" /> : 'Search'}
                   </button>
                 </div>
                 <p className={styles.searchHint}>
@@ -253,10 +469,14 @@ export default function Playground() {
                 </p>
               </form>
 
-              {error && (
-                <div className={styles.error}>
-                  <span className={styles.errorIcon}>!</span> {error}
+              {loading && (
+                <div className={styles.loading}>
+                  <LoadingDots text="Searching the divan" />
                 </div>
+              )}
+
+              {error && (
+                <NoResults query={query} onReset={handleReset} />
               )}
 
               {results && (
@@ -299,60 +519,53 @@ export default function Playground() {
                     </div>
                   )}
 
-                  {/* Poem matches */}
+                  {/* Poem matches — truncated to 3 */}
                   {results.poems?.length > 0 && (
                     <div className={styles.section}>
                       <h2 className={styles.sectionTitle}>
                         <code className={styles.sectionEndpoint}>poems</code>
                         <span className={styles.sectionCount}>{results.poems.length}</span>
                       </h2>
-                      <div className={styles.poemGrid}>
-                        {results.poems.map(p => {
-                          const book = results.books?.find(b => b.id === p.book_id);
-                          return (
-                            <PoemCard key={p.id} poem={p} bookName={book?.name} />
-                          );
-                        })}
-                      </div>
+                      <TruncatedPoemList
+                        poems={results.poems}
+                        bookName={results.books?.find(b => b.id === results.poems[0]?.book_id)?.name}
+                        initialCount={3}
+                      />
                     </div>
                   )}
 
-                  {/* Verse matches */}
+                  {/* Verse matches — truncated to 3 */}
                   {results.verses?.length > 0 && (
                     <div className={styles.section}>
                       <h2 className={styles.sectionTitle}>
                         <code className={styles.sectionEndpoint}>verses</code>
                         <span className={styles.sectionCount}>{results.verses.length}</span>
                       </h2>
-                      <div className={styles.verseGrid}>
-                        {results.verses.map(v => {
-                          const poem = results.poems?.find(p => p.id === v.poem_id);
-                          const book = results.books?.find(b => b.id === v.book_id);
-                          return (
-                            <VerseCard
-                              key={v.id}
-                              verse={v}
-                              meta={{
-                                bookName: book?.name,
-                                poemName: poem?.name,
-                                poemNo: poem?.poem_no,
-                              }}
-                            />
-                          );
-                        })}
-                      </div>
+                      <TruncatedVerseList
+                        verses={results.verses}
+                        results={results}
+                        initialCount={3}
+                      />
                     </div>
                   )}
 
                   {results.total === 0 && (
-                    <div className={styles.empty}>No results found for "{query}"</div>
+                    <NoResults query={query} onReset={handleReset} />
+                  )}
+
+                  {results.total > 0 && (
+                    <NewSearchBar currentQuery={query} onSearch={handleReset} />
                   )}
                 </>
               )}
 
               {!results && !loading && !error && (
                 <div className={styles.searchPrompt}>
-                  <p>Try searching for <button className={styles.suggestion} onClick={() => { setQuery('khudi'); }}>khudi</button>, <button className={styles.suggestion} onClick={() => { setQuery('eagle'); }}>eagle</button>, or <button className={styles.suggestion} onClick={() => { setQuery('خودی'); }}>خودی</button></p>
+                  <p>Try searching for{' '}
+                    <button className={styles.suggestion} onClick={() => { setQuery('khudi'); }}>khudi</button>,{' '}
+                    <button className={styles.suggestion} onClick={() => { setQuery('shaeen'); }}>shaeen</button>, or{' '}
+                    <button className={styles.suggestion} onClick={() => { setQuery('خودی'); }}>خودی</button>
+                  </p>
                 </div>
               )}
             </div>
@@ -361,7 +574,11 @@ export default function Playground() {
           {/* ══ BOOKS TAB ══ */}
           {tab === 'books' && (
             <div className={styles.tabContent}>
-              {booksLoading && <div className={styles.loading}>Loading books···</div>}
+              {booksLoading && (
+                <div className={styles.loading}>
+                  <LoadingDots text="Loading books" />
+                </div>
+              )}
 
               {!selectedBook && books && (
                 <>
@@ -386,7 +603,11 @@ export default function Playground() {
                     {bookTotal > 0 && <span className={styles.breadcrumbCount}>{bookTotal} poems</span>}
                   </div>
 
-                  {bookPoemsLoading && <div className={styles.loading}>Loading poems···</div>}
+                  {bookPoemsLoading && (
+                    <div className={styles.loading}>
+                      <LoadingDots text="Loading poems" />
+                    </div>
+                  )}
 
                   {bookPoems && (
                     <div className={styles.poemGrid}>
@@ -412,18 +633,40 @@ export default function Playground() {
                   onClick={loadRandom}
                   disabled={randomLoading}
                 >
-                  {randomLoading ? '···' : '↺ New Couplet'}
+                  {randomLoading ? <LoadingDots text="Finding" /> : '↺ New Couplet'}
                 </button>
               </div>
 
-              {randomLoading && <div className={styles.loading}>Loading···</div>}
+              {randomLoading && (
+                <div className={styles.loading}>
+                  <LoadingDots text="Drawing from the divan" />
+                </div>
+              )}
 
               {random && (
                 <div className={styles.coupletCard}>
+                  {/* Top bar: endpoint code left, chips right */}
                   <div className={styles.coupletLabel}>
                     <code>/verses/random</code>
+                    {randomMeta && (
+                      <div className={styles.coupletMetaChips}>
+                        {randomMeta.bookName && <span className={styles.metaBook}>{randomMeta.bookName}</span>}
+                        {randomMeta.poemNo !== undefined && <span className={styles.metaNo}>Poem #{randomMeta.poemNo}</span>}
+                      </div>
+                    )}
                   </div>
-                  {random.map((v, i) => (
+
+                  {/* Poem subtitle row — separate from the label bar */}
+                  {randomMeta?.poemName && (
+                    <div className={styles.coupletPoemSubtitleRow}>
+                      <span>From the poem: <span className={styles.coupletPoemSubtitleName}>{randomMeta.poemName}</span></span>
+                      {randomMeta.poemNameUrdu && (
+                        <span className={styles.coupletPoemSubtitleUrdu} dir="rtl">{randomMeta.poemNameUrdu}</span>
+                      )}
+                    </div>
+                  )}
+
+                  {random.map((v) => (
                     <div key={v.id} className={styles.coupletVerse}>
                       <span className={styles.coupletNum}>{v.verse_no}</span>
                       <div className={styles.coupletTexts}>
@@ -444,6 +687,10 @@ export default function Playground() {
           )}
 
         </div>
+
+        {/* ── Footer Spacer ── */}
+        <div className={styles.footerSpacer} />
+
       </div>
     </Layout>
   );

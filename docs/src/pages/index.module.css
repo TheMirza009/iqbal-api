@@ -316,6 +316,13 @@ html[data-theme='dark'] .heroLogo {
   line-height: 1.2;
 }
 
+.sectionSubtitle {
+  font-size: 0.85rem;
+  color: var(--text-3);
+  margin: -1.75rem 0 1.75rem;
+}
+
+
 /* font-family: 'Bodoni Moda Bold', Georgia, serif !important;
     font-size: 1.25rem;
     font-weight: 600 !important;
@@ -443,6 +450,36 @@ html[data-theme='dark'] .heroLogo {
   opacity: 0.7;
 }
 
+.endpointTeaser {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.875rem 1.125rem;
+  background: var(--accent-muted);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  margin-top: 1.75rem;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.teaserText {
+  font-size: 0.85rem;
+  color: var(--text-2);
+}
+
+.teaserLink {
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--accent) !important;
+  text-decoration: none !important;
+  transition: opacity 0.15s;
+}
+
+.teaserLink:hover {
+  opacity: 0.7;
+}
+
 /* ═══════════════════════════════════
    FEATURE CARDS (individual, no grid-line style)
 ═══════════════════════════════════ */
@@ -532,4 +569,25 @@ html[data-theme='dark'] .heroLogo {
   .ctas { flex-direction: column; align-items: center; }
   .path { font-size: 0.75rem; }
   .bookGrid { grid-template-columns: 1fr 1fr; }
+}
+
+/* Ensure the section itself has consistent padding on mobile */
+@media (max-width: 600px) {
+  .section {
+    padding-left: 1.25rem;  /* Matches standard mobile gutter */
+    padding-right: 1.25rem;
+  }
+
+  /* Force the indented section to respect the container on mobile */
+  .sectionIndented {
+    padding-left: 1.25rem !important;
+    padding-right: 1.25rem !important;
+  }
+
+  /* Adjust the book grid to prevent overflow */
+  .bookGrid {
+    grid-template-columns: 1fr; /* Stack books on very small screens for better readability */
+    gap: 1rem;
+    width: 100%;
+  }
 }
