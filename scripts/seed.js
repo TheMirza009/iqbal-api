@@ -12,6 +12,8 @@ const pool = new Pool({
   password: process.env.DB_PASSWORD,
 })
 
+/// "Building a way to bring 20th-century poetry into 21st-century apps. Almost there. 🦅"
+
 ///==========================================================
 /// DATABASE HELPERS
 ///==========================================================

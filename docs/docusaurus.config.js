@@ -5,7 +5,7 @@ import {themes as prismThemes} from 'prism-react-renderer';
 const config = {
   title: 'IqbalAPI',
   tagline: 'A free, open REST API for Allama Iqbal\'s poetry.',
-  favicon: 'img/favicon.svg',
+  favicon: 'img/eagle.svg',
 
   future: {
     v4: true,
@@ -25,10 +25,66 @@ const config = {
     locales: ['en'],
   },
 
+  headTags: [{
+    tagName: 'script',
+    attributes: { type: 'application/ld+json' },
+    innerHTML: JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "IqbalAPI",
+      "url": "https://iqbal-api-docs.up.railway.app/",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://iqbal-api-docs.up.railway.app/search?q={search_term_string}",
+        "query-input": "required name=search_term_string"
+      }
+    }),
+  },
+    {
+      tagName: 'link',
+      attributes: {
+        rel: 'apple-touch-icon',
+        sizes: '180x180',
+        href: '/img/apple-touch-icon.png',
+      },
+    },
+    {
+      tagName: 'link',
+      attributes: {
+        rel: 'icon',
+        type: 'image/png',
+        sizes: '32x32',
+        href: '/img/favicon-32x32.png',
+      },
+    },
+    {
+      tagName: 'link',
+      attributes: {
+        rel: 'icon',
+        type: 'image/png',
+        sizes: '16x16',
+        href: '/img/favicon-16x16.png',
+      },
+    },
+    {
+      tagName: 'link',
+      attributes: {
+        rel: 'manifest',
+        href: '/img/site.webmanifest',
+      },
+    },
+    {
+      tagName: 'meta',
+      attributes: {
+        name: 'theme-color',
+        content: '#a85500',
+      },
+    },
+  ],
+
   presets: [
     [
       'classic',
-      /** @type {import('@docusaurus/preset-classic').Options} */
       ({
         docs: {
           sidebarPath: './sidebars.js',
@@ -49,7 +105,6 @@ const config = {
   ],
 
   themeConfig:
-    /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
       metadata: [
         {
@@ -103,18 +158,9 @@ const config = {
           {
             title: 'API',
             items: [
-              {
-                label: 'Live API',
-                href: 'https://iqbal-api.up.railway.app',
-              },
-              {
-                label: 'Playground',
-                href: 'https://iqbal-api-docs.up.railway.app/playground',
-              },
-              {
-                label: 'Repository',
-                href: 'https://github.com/TheMirza009/iqbal-api',
-              },
+              { label: 'Live API', href: 'https://iqbal-api.up.railway.app' },
+              { label: 'Playground', href: 'https://iqbal-api-docs.up.railway.app/playground' },
+              { label: 'Repository', href: 'https://github.com/TheMirza009/iqbal-api' },
             ],
           },
           {
