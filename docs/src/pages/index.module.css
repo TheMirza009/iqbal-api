@@ -556,12 +556,17 @@ html[data-theme='dark'] .heroLogo {
 }
 
 .codeBlock pre {
-  font-family: 'JetBrains Mono', monospace;
+  font-family: 'JetBrains Mono', monospace !important;
   font-size: 0.85rem;
   color: var(--code-text);
   margin: 0;
   line-height: 1.75;
   background: transparent;
+  text-align: left;
+  direction: ltr;
+  unicode-bidi: plaintext;
+  white-space: pre-wrap;
+  word-break: break-word;
 }
 
 /* ═══════════════════════════════════
@@ -591,6 +596,13 @@ html[data-theme='dark'] .heroLogo {
   .ctas { flex-direction: column; align-items: center; }
   .path { font-size: 0.75rem; }
   .bookGrid { grid-template-columns: 1fr 1fr; }
+}
+
+@media (min-width: 601px) and (max-width: 920px) {
+  .section {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
 }
 
 /* Ensure the section itself has consistent padding on mobile */
