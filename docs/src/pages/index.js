@@ -24,7 +24,7 @@ const ENDPOINTS = [
   { method: 'GET', path: '/verses/random', desc: 'Random couplet' },
   { method: 'GET', path: '/poems/random', desc: 'Random poem with verses' },
   { method: 'GET', path: '/books', desc: 'All 4 books' },
-  { method: 'GET', path: '/search?term=خودی', desc: 'Search by term' },
+  { method: 'GET', path: '/search?term=', urdu: 'خودی', desc: 'Search by term' },
   { method: 'GET', path: '/verses?count=10&page=2', desc: 'Paginated verses' },
 ];
 
@@ -153,20 +153,25 @@ export default function Home() {
                   rel="noopener noreferrer"
                 >
                   <span className={styles.method}>{e.method}</span>
-                  <code className={styles.path}>{e.path}</code>
+                  <code className={styles.path}>
+                    {e.path}
+                    {e.urdu && (
+                      <span className={styles.pathUrdu}>{e.urdu}</span>
+                    )}
+                  </code>
                   <span className={styles.edesc}>{e.desc}</span>
                   <span className={styles.earrow}>↗</span>
                 </a>
               ))}
             </div>
-          <div className={styles.endpointTeaser}>
-            <span className={styles.teaserText}>
-              Want to explore interactively?
-            </span>
-            <Link className={styles.teaserLink} to="/playground">
-              Open the Playground →
-            </Link>
-          </div>
+            <div className={styles.endpointTeaser}>
+              <span className={styles.teaserText}>
+                Want to explore interactively?
+              </span>
+              <Link className={styles.teaserLink} to="/playground">
+                Open the Playground →
+              </Link>
+            </div>
           </div>
         </section>
 

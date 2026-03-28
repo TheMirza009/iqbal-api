@@ -122,8 +122,11 @@ html[data-theme='dark'] .page {
 }
 
 .badge {
+  /* display: inline-block; */
+  display: block;
+  width: fit-content;
+  margin: 0 auto 1.75rem;
   animation: heroReveal 0.9s 0s ease both;
-  display: inline-block;
   padding: 0.25rem 0.85rem;
   background: var(--badge-bg);
   border: 1px solid var(--badge-border);
@@ -133,11 +136,12 @@ html[data-theme='dark'] .page {
   letter-spacing: 0.1em;
   text-transform: uppercase;
   border-radius: 999px;
-  margin-bottom: 1.75rem;
   font-family: 'JetBrains Mono', monospace;
+  /* margin-bottom: 1.75rem; */
 }
 
 .heroTitle {
+  text-align: center;
   animation: heroReveal 0.9s 0s ease both;
   font-family: 'Bodoni Moda', 'Bodoni MT', 'Didot', Georgia, serif;
   font-size: clamp(4.5rem, 14vw, 9rem);
@@ -149,6 +153,8 @@ html[data-theme='dark'] .page {
 }
 
 .heroUrdu {
+  text-align: center;
+  direction: rtl;
   animation: heroReveal 0.9s 0s ease both;
   font-family: 'Noto Nastaliq Urdu', 'Mehr Nastaliq Web', serif;
   font-size: clamp(1.1rem, 3vw, 1.6rem);
@@ -186,6 +192,7 @@ html[data-theme='dark'] .heroLogo {
 }
 
 .tagline {
+  text-align: center;
   animation: heroReveal 0.9s 0s ease both;
   font-size: clamp(0.95rem, 2vw, 1.1rem);
   color: var(--text-2);
@@ -195,6 +202,7 @@ html[data-theme='dark'] .heroLogo {
 }
 
 .tagline strong {
+  text-align: center;
   animation: heroReveal 0.9s 0s ease both;
   color: var(--text-1);
   font-weight: 500;
@@ -394,6 +402,7 @@ html[data-theme='dark'] .heroLogo {
 }
 
 .endpointRow {
+  /* text-align: left; */
   display: flex;
   align-items: center;
   gap: 1rem;
@@ -432,7 +441,19 @@ html[data-theme='dark'] .heroLogo {
   background: transparent;
   border: none;
   padding: 0;
+  direction: ltr;
+  unicode-bidi: plaintext;
+  text-align: left;
 }
+
+/* .pathUrdu {
+  font-family: 'Noto Nastaliq Urdu', serif;
+  font-size: 0.95rem;
+  direction: rtl;
+  unicode-bidi: embed;
+  line-height: 1;
+  vertical-align: middle;
+} */
 
 .edesc {
   font-size: 0.8rem;
